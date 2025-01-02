@@ -1782,7 +1782,7 @@ video {
   animation: fadeleft 1s;
 }
 
-@keyframes fadeup {
+@keyframes fadedown {
   0% {
     opacity: 0;
     transform: translateY(-100%);
@@ -1794,11 +1794,11 @@ video {
   }
 }
 
-.fadeUp {
-  animation: fadeup 1s;
+.fadeDown {
+  animation: fadedown 1s;
 }
 
-@keyframes fadedown {
+@keyframes fadeup {
   0% {
     opacity: 0;
     transform: translateY(100%);
@@ -1810,8 +1810,8 @@ video {
   }
 }
 
-.fadeDown {
-  animation: fadedown 1s;
+.fadeUp {
+  animation: fadeup 1s;
 }
 
 @keyframes bounce {
@@ -1840,10 +1840,6 @@ video {
   100% {
     height: 100%;
   }
-}
-
-.scaleUp {
-  animation: scaleUp 1s;
 }
 
 .\[mask-image\:radial-gradient\(100\%_100\%_at_top_right\2c white\2c transparent\)\] {
@@ -2382,6 +2378,10 @@ video {
 
   .lg\:align-middle {
     vertical-align: middle;
+  }
+
+  .lg\:fadeUp {
+    animation: fadeup 1s;
   }
 }
 

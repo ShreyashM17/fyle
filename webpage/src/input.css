@@ -64,7 +64,7 @@
     animation: fadeleft 1s;
   }
 
-  @keyframes fadeup {
+  @keyframes fadedown {
     0% {
       opacity: 0;
       transform: translateY(-100%);
@@ -76,11 +76,11 @@
     }
   }
 
-  .fadeUp {
-    animation: fadeup 1s;
+  .fadeDown {
+    animation: fadedown 1s;
   }
 
-  @keyframes fadedown {
+  @keyframes fadeup {
     0% {
       opacity: 0;
       transform: translateY(100%);
@@ -92,8 +92,8 @@
     }
   }
 
-  .fadeDown {
-    animation: fadedown 1s;
+  .fadeUp {
+    animation: fadeup 1s;
   }
 
   @keyframes bounce {
