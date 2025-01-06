@@ -2826,6 +2826,14 @@ video {
   .sm\:ring-gray-900\/10 {
     --tw-ring-color: rgb(17 24 39 / 0.1);
   }
+
+  .sm\:fadeRight {
+    animation: faderight 1s;
+  }
+
+  .sm\:fadeLeft {
+    animation: fadeleft 1s;
+  }
 }
 
 @media (min-width: 768px) {
@@ -3083,6 +3091,14 @@ video {
     row-gap: 11rem;
   }
 
+  .lg\:gap-y-32 {
+    row-gap: 8rem;
+  }
+
+  .lg\:gap-y-24 {
+    row-gap: 6rem;
+  }
+
   .lg\:rounded-2xl {
     border-radius: 1rem;
   }
@@ -3206,6 +3222,18 @@ video {
 
   .lg\:ring-white\/10 {
     --tw-ring-color: rgb(255 255 255 / 0.1);
+  }
+
+  .lg\:fadeRight {
+    animation: faderight 1s;
+  }
+
+  .lg\:fadeLeft {
+    animation: fadeleft 1s;
+  }
+
+  .lg\:fadeUp {
+    animation: fadeup 1s;
   }
 }
 
