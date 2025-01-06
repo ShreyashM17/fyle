@@ -112,19 +112,16 @@
     animation: bounce 1s;
   }
 
-  @keyframes scaleUp {
-    0% {
-      height: 0;
-    }
-    50% {
-      height: 50%;
+  @keyframes fade {
+    0%{
+      opacity: 0;
     }
     100% {
-      height: 100%;
+      opacity: 1;
     }
   }
 
-  .scaleUp {
-    animation: scaleUp 1s;
+  .Fade{
+    animation: fade 1s;
   }
 }

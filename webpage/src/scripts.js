@@ -22,13 +22,15 @@ function formValidation() {
         this.errors.email = 'Email is required.';
       } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.form.email)) {
         this.errors.email = 'Enter a valid email.';
+      } else if (this.isPublicEmail(this.form.email)) {
+        this.errors.email = 'Please use your company email address.';
       }
 
       // Phone Number Validation
       if (!this.form.phone.trim()) {
         this.errors.phone = 'Phone number is required.';
-      } else if (!/^\d{10}$/.test(this.form.phone)) {
-        this.errors.phone = 'Enter a valid 10-digit phone number.';
+      } else if (!/^\d{8}$/.test(this.form.phone)) {
+        this.errors.phone = 'Enter a valid phone number.';
       }
 
       // Dropdown Validation
@@ -47,6 +49,13 @@ function formValidation() {
         this.resetForm();
       }
     },
+
+    isPublicEmail(email) {
+      const publicDomains = ['gmail.com', 'yahoo.com', 'outlook.com', 'hotmail.com', 'aol.com', 'icloud.com'];
+      const emailDomain = email.split('@')[1];
+      return publicDomains.includes(emailDomain.toLowerCase());
+    },
+
     clearError(field) {
       delete this.errors[field]; // Clear error for the specific field
     },

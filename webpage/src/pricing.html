@@ -1,0 +1,2257 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="description" content="Automated expense reporting, credit card reconciliation & receipt management with Fyle–the best expense management software.">
+  <title>Fyle</title>
+  <link rel="icon" href="./assets/icons/favicon.ico" sizes="32x32">
+  <link href="output.css" rel="stylesheet">
+  <!-- Alpine Plugins -->
+  <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/intersect@3.x.x/dist/cdn.min.js"></script>
+  <!-- Alpine Core -->
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.8/dist/cdn.min.js"></script>
+</head>
+<body class="font-plusJakartaSans" x-data="{ formActive: false }" :class="formActive ? 'overflow-hidden':'overflow-y-scroll'">
+  <!-- Navbar -->
+  <header class="fixed isolate z-10 bg-white w-full">
+    <nav class="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global" x-data="{open: false, solution_dropdown: false, features_dropdown: false, resource_dropdown: false }">
+      <div class="flex lg:flex-1" x-show="!open">
+        <a href="/" class="-m-1.5 p-1.5">
+          <span class="sr-only">Fyle</span>
+          <img class="h-8 w-auto" src="./assets/icons/fylelogo.svg" alt="company logo">
+        </a>
+      </div>
+      <div class="flex lg:hidden">
+        <button type="button" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700" @click="open = true" x-show="!open">
+          <span class="sr-only">Open main menu</span>
+          <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+          </svg>
+        </button>
+      </div>
+      <div class="hidden lg:flex lg:gap-x-12">
+        <!-- Features -->
+        <div class="relative">
+          <button type="button" class="inline-flex items-center gap-x-1 text-sm/6 font-semibold text-gray-900" aria-expanded="false" @click="features_dropdown = !features_dropdown" @keydown.escape="features_dropdown = false">
+            <span>Features</span>
+            <svg class="size-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+              <path fill-rule="evenodd" d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
+            </svg>
+          </button>
+        
+          <!--
+            Flyout menu, show/hide based on flyout menu state.
+        
+            Entering: "transition ease-out duration-200"
+              From: "opacity-0 translate-y-1"
+              To: "opacity-100 translate-y-0"
+            Leaving: "transition ease-in duration-150"
+              From: "opacity-100 translate-y-0"
+              To: "opacity-0 translate-y-1"
+          -->
+          <div class="absolute left-1/2 z-10 mt-5 flex w-screen max-w-max -translate-x-1/4 px-4" 
+            x-show="features_dropdown"
+            x-transition:enter="transition ease-out duration-200" 
+            x-transition:enter-start="opacity-0 -translate-y-1"
+            x-transition:enter-end="opacity-100 translate-y-0"
+            x-transition:leave="transition ease-in duration-150"
+            x-transition:leave-start="opacity-100 translate-y-0"
+            x-transition:leave-end="opacity-0 -translate-y-1"
+            @click.away="features_dropdown = false"
+            x-cloak
+            >
+            <div class="w-screen max-w-md flex-auto overflow-hidden rounded-3xl bg-white text-sm/6 shadow-lg ring-1 ring-gray-900/5 lg:max-w-4xl">
+              <div class="grid grid-cols-1 gap-x-6 gap-y-1 p-4 lg:grid-cols-3">
+                <div class="group relative flex gap-x-6 rounded-lg p-4 hover:bg-gray-50">
+                  <div class="mt-1 flex size-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="size-6 text-gray-600 group-hover:text-primary" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 0 1 .865-.501 48.172 48.172 0 0 0 3.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <a href="#" class="font-semibold text-gray-900">
+                      Text Messages
+                      <span class="absolute inset-0"></span>
+                    </a>
+                    <p class="mt-1 text-gray-600">The biggest innovation in receipt tracking since mobiles</p>
+                  </div>
+                </div>
+                <div class="group relative flex gap-x-6 rounded-lg p-4 hover:bg-gray-50">
+                  <div class="mt-1 flex size-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
+                    <svg class="size-6 text-gray-600 group-hover:text-primary" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 16.875h3.375m0 0h3.375m-3.375 0V13.5m0 3.375v3.375M6 10.5h2.25a2.25 2.25 0 0 0 2.25-2.25V6a2.25 2.25 0 0 0-2.25-2.25H6A2.25 2.25 0 0 0 3.75 6v2.25A2.25 2.25 0 0 0 6 10.5Zm0 9.75h2.25A2.25 2.25 0 0 0 10.5 18v-2.25a2.25 2.25 0 0 0-2.25-2.25H6a2.25 2.25 0 0 0-2.25 2.25V18A2.25 2.25 0 0 0 6 20.25Zm9.75-9.75H18a2.25 2.25 0 0 0 2.25-2.25V6A2.25 2.25 0 0 0 18 3.75h-2.25A2.25 2.25 0 0 0 13.5 6v2.25a2.25 2.25 0 0 0 2.25 2.25Z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <a href="#" class="font-semibold text-gray-900">
+                      Integrations
+                      <span class="absolute inset-0"></span>
+                    </a>
+                    <p class="mt-1 text-gray-600">Sync with your accounting software HRMS and more.</p>
+                  </div>
+                </div>
+                <div class="group relative flex gap-x-6 rounded-lg p-4 hover:bg-gray-50">
+                  <div class="mt-1 flex size-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
+                    <svg class="size-6 text-gray-600 group-hover:text-primary" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <a href="#" class="font-semibold text-gray-900">
+                      Cards
+                      <span class="absolute inset-0"></span>
+                    </a>
+                    <p class="mt-1 text-gray-600">Manage and automate credit card reconciliation</p>
+                  </div>
+                </div>
+                <div class="group relative flex gap-x-6 rounded-lg p-4 hover:bg-gray-50">
+                  <div class="mt-1 flex size-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
+                    <svg class="size-6 text-gray-600 group-hover:text-primary" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="m9 14.25 6-6m4.5-3.493V21.75l-3.75-1.5-3.75 1.5-3.75-1.5-3.75 1.5V4.757c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0 1 11.186 0c1.1.128 1.907 1.077 1.907 2.185ZM9.75 9h.008v.008H9.75V9Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm4.125 4.5h.008v.008h-.008V13.5Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <a href="#" class="font-semibold text-gray-900">
+                      Receipts
+                      <span class="absolute inset-0"></span>
+                    </a>
+                    <p class="mt-1 text-gray-600">Track receipts from everyday apps in a few clicks</p>
+                  </div>
+                </div>
+                <div class="group relative flex gap-x-6 rounded-lg p-4 hover:bg-gray-50">
+                  <div class="mt-1 flex size-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
+                    <svg class="size-6 text-gray-600 group-hover:text-primary" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <a href="#" class="font-semibold text-gray-900">
+                      Expenses
+                      <span class="absolute inset-0"></span>
+                    </a>
+                    <p class="mt-1 text-gray-600">Report expenses, mileages, per-diems and more</p>
+                  </div>
+                </div>
+                <div class="group relative flex gap-x-6 rounded-lg p-4 hover:bg-gray-50">
+                  <div class="mt-1 flex size-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
+                    <svg class="size-6 text-gray-600 group-hover:text-primary" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M10.125 2.25h-4.5c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125v-9M10.125 2.25h.375a9 9 0 0 1 9 9v.375M10.125 2.25A3.375 3.375 0 0 1 13.5 5.625v1.5c0 .621.504 1.125 1.125 1.125h1.5a3.375 3.375 0 0 1 3.375 3.375M9 15l2.25 2.25L15 12" />
+                    </svg>
+                  </div>
+                  <div>
+                    <a href="#" class="font-semibold text-gray-900">
+                      Approvals
+                      <span class="absolute inset-0"></span>
+                    </a>
+                    <p class="mt-1 text-gray-600">Set up any approval workflow and approve on-the-go</p>
+                  </div>
+                </div>
+                <div class="group relative flex gap-x-6 rounded-lg p-4 hover:bg-gray-50">
+                  <div class="mt-1 flex size-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
+                    <svg class="size-6 text-gray-600 group-hover:text-primary" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
+                    </svg>
+                  </div>
+                  <div>
+                    <a href="#" class="font-semibold text-gray-900">
+                      Reimbursements
+                      <span class="absolute inset-0"></span>
+                    </a>
+                    <p class="mt-1 text-gray-600">Streamline employee reimbursements with ACH</p>
+                  </div>
+                </div>
+                <div class="group relative flex gap-x-6 rounded-lg p-4 hover:bg-gray-50">
+                  <div class="mt-1 flex size-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
+                    <svg class="size-6 text-gray-600 group-hover:text-primary" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25M9 16.5v.75m3-3v3M15 12v5.25m-4.5-15H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <a href="#" class="font-semibold text-gray-900">
+                      Analytics
+                      <span class="absolute inset-0"></span>
+                    </a>
+                    <p class="mt-1 text-gray-600">Configure budgets and track spend against them</p>
+                  </div>
+                </div>
+                <div class="group relative flex gap-x-6 rounded-lg p-4 hover:bg-gray-50">
+                  <div class="mt-1 flex size-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
+                    <svg class="size-6 text-gray-600 group-hover:text-primary" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0 1 15.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 0 1 3 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 0 0-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 0 1-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 0 0 3 15h-.75M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm3 0h.008v.008H18V10.5Zm-12 0h.008v.008H6V10.5Z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <a href="#" class="font-semibold text-gray-900">
+                      Budgets
+                      <span class="absolute inset-0"></span>
+                    </a>
+                    <p class="mt-1 text-gray-600">Get rich insights into your company spend</p>
+                  </div>
+                </div>
+                <div class="group relative flex gap-x-6 rounded-lg p-4 hover:bg-gray-50">
+                  <div class="mt-1 flex size-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
+                    <svg class="size-6 text-gray-600 group-hover:text-primary" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 0 0 6 3.75v16.5a2.25 2.25 0 0 0 2.25 2.25h7.5A2.25 2.25 0 0 0 18 20.25V3.75a2.25 2.25 0 0 0-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3" />
+                    </svg>
+                  </div>
+                  <div>
+                    <a href="#" class="font-semibold text-gray-900">
+                      Mobile App
+                      <span class="absolute inset-0"></span>
+                    </a>
+                    <p class="mt-1 text-gray-600">Access everything from Fyle's easy to use mobile app</p>
+                  </div>
+                </div>
+              </div>
+              <a href="#">
+                <div class="bg-gray-50 px-8 py-6 group hover:bg-primary">
+                  <div class="flex items-center gap-x-3">
+                    <h3 class="text-sm/6 font-semibold text-gray-900  group-hover:text-white">View all Features</h3>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+        <!-- Solution -->
+        <div>
+          <button type="button" class="flex items-center gap-x-1 text-sm/6 font-semibold text-gray-900" aria-expanded="false" @click="solution_dropdown = !solution_dropdown" @keydown.escape="solution_dropdown = false">
+            Solutions
+            <svg class="size-5 flex-none text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+              <path fill-rule="evenodd" d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
+            </svg>
+          </button>
+  
+          <!--
+            'Product' flyout menu, show/hide based on flyout menu state.
+  
+            Entering: "transition ease-out duration-200"
+              From: "opacity-0 -translate-y-1"
+              To: "opacity-100 translate-y-0"
+            Leaving: "transition ease-in duration-150"
+              From: "opacity-100 translate-y-0"
+              To: "opacity-0 -translate-y-1"
+          -->
+          <div class="absolute inset-x-0 top-0 -z-10 bg-white pt-14 shadow-lg ring-1 ring-gray-900/5"
+            x-show="solution_dropdown" 
+            x-transition:enter="transition ease-out duration-200" 
+            x-transition:enter-start="opacity-0 -translate-y-1"
+            x-transition:enter-end="opacity-100 translate-y-0"
+            x-transition:leave="transition ease-in duration-150"
+            x-transition:leave-start="opacity-100 translate-y-0"
+            x-transition:leave-end="opacity-0 -translate-y-1"
+            @click.away="solution_dropdown = false"
+            x-cloak
+          >
+            <div class="mx-auto grid max-w-7xl grid-cols-4 gap-x-4 px-6 py-10 lg:px-8 xl:gap-x-8">
+              <div class="group relative rounded-lg p-6 text-sm/6 hover:bg-gray-50">
+                <div class="flex size-11 items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
+                  <svg class="size-6 text-gray-600 group-hover:text-primary" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 21v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21m0 0h4.5V3.545M12.75 21h7.5V10.75M2.25 21h1.5m18 0h-18M2.25 9l4.5-1.636M18.75 3l-1.5.545m0 6.205 3 1m1.5.5-1.5-.5M6.75 7.364V3h-3v18m3-13.636 10.5-3.819" />
+                  </svg>
+                </div>
+                <a href="#" class="mt-6 block font-semibold text-gray-900">
+                  Construction
+                  <span class="absolute inset-0"></span>
+                </a>
+              </div>
+              <div class="group relative rounded-lg p-6 text-sm/6 hover:bg-gray-50">
+                <div class="flex size-11 items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
+                  <svg class="size-6 text-gray-600 group-hover:text-primary" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6a7.5 7.5 0 1 0 7.5 7.5h-7.5V6Z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5H21A7.5 7.5 0 0 0 13.5 3v7.5Z" />
+                  </svg>
+                </div>
+                <a href="#" class="mt-6 block font-semibold text-gray-900">
+                  Non-profit
+                  <span class="absolute inset-0"></span>
+                </a>
+              </div>
+              <div class="group relative rounded-lg p-6 text-sm/6 hover:bg-gray-50">
+                <div class="flex size-11 items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
+                  <svg class="size-6 text-gray-600 group-hover:text-primary" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 3v1.5M4.5 8.25H3m18 0h-1.5M4.5 12H3m18 0h-1.5m-15 3.75H3m18 0h-1.5M8.25 19.5V21M12 3v1.5m0 15V21m3.75-18v1.5m0 15V21m-9-1.5h10.5a2.25 2.25 0 0 0 2.25-2.25V6.75a2.25 2.25 0 0 0-2.25-2.25H6.75A2.25 2.25 0 0 0 4.5 6.75v10.5a2.25 2.25 0 0 0 2.25 2.25Zm.75-12h9v9h-9v-9Z" />
+                  </svg>
+                </div>
+                <a href="#" class="mt-6 block font-semibold text-gray-900">
+                  Technology
+                  <span class="absolute inset-0"></span>
+                </a>
+              </div>
+              <div class="group relative rounded-lg p-6 text-sm/6 hover:bg-gray-50">
+                <div class="flex size-11 items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
+                  <svg class="size-6 text-gray-600 group-hover:text-primary" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12.75V12A2.25 2.25 0 0 1 4.5 9.75h15A2.25 2.25 0 0 1 21.75 12v.75m-8.69-6.44-2.12-2.12a1.5 1.5 0 0 0-1.061-.44H4.5A2.25 2.25 0 0 0 2.25 6v12a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9a2.25 2.25 0 0 0-2.25-2.25h-5.379a1.5 1.5 0 0 1-1.06-.44Z" />
+                  </svg>
+                </div>
+                <a href="#" class="mt-6 block font-semibold text-gray-900">
+                  Legal Services
+                  <span class="absolute inset-0"></span>
+                </a>
+              </div>
+              <div class="group relative rounded-lg p-6 text-sm/6 hover:bg-gray-50">
+                <div class="flex size-11 items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
+                  <svg class="size-6 text-gray-600 group-hover:text-primary" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                  </svg>
+                </div>
+                <a href="#" class="mt-6 block font-semibold text-gray-900">
+                    Healthcare
+                  <span class="absolute inset-0"></span>
+                </a>
+              </div>
+              <div class="group relative rounded-lg p-6 text-sm/6 hover:bg-gray-50">
+                <div class="flex size-11 items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
+                  <svg class="size-6 text-gray-600 group-hover:text-primary" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0 0 12 9.75c-2.551 0-5.056.2-7.5.582V21M3 21h18M12 6.75h.008v.008H12V6.75Z" />
+                  </svg>
+                </div>
+                <a href="#" class="mt-6 block font-semibold text-gray-900">
+                  Religious Institutions
+                  <span class="absolute inset-0"></span>
+                </a>
+              </div>
+            </div>
+            <div class="bg-gray-50">
+              <div class="mx-auto max-w-7xl px-6 lg:px-8">
+                <div class="grid grid-cols-3 divide-x divide-gray-900/5 border-x border-gray-900/5">
+                  <a href="#" class="group flex items-center justify-center gap-x-2.5 p-3 text-sm/6 font-semibold text-gray-900 hover:bg-primary hover:text-white">
+                    <svg class="size-5 flex-none text-gray-400 group-hover:text-white" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                      <path fill-rule="evenodd" d="M2 10a8 8 0 1 1 16 0 8 8 0 0 1-16 0Zm6.39-2.908a.75.75 0 0 1 .766.027l3.5 2.25a.75.75 0 0 1 0 1.262l-3.5 2.25A.75.75 0 0 1 8 12.25v-4.5a.75.75 0 0 1 .39-.658Z" clip-rule="evenodd" />
+                    </svg>
+                    Watch demo
+                  </a>
+                  <a href="#" class="group flex items-center justify-center gap-x-2.5 p-3 text-sm/6 font-semibold text-gray-900 hover:bg-primary hover:text-white">
+                    <svg class="size-5 flex-none text-gray-400 group-hover:text-white" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                      <path fill-rule="evenodd" d="M2 3.5A1.5 1.5 0 0 1 3.5 2h1.148a1.5 1.5 0 0 1 1.465 1.175l.716 3.223a1.5 1.5 0 0 1-1.052 1.767l-.933.267c-.41.117-.643.555-.48.95a11.542 11.542 0 0 0 6.254 6.254c.395.163.833-.07.95-.48l.267-.933a1.5 1.5 0 0 1 1.767-1.052l3.223.716A1.5 1.5 0 0 1 18 15.352V16.5a1.5 1.5 0 0 1-1.5 1.5H15c-1.149 0-2.263-.15-3.326-.43A13.022 13.022 0 0 1 2.43 8.326 13.019 13.019 0 0 1 2 5V3.5Z" clip-rule="evenodd" />
+                    </svg>
+                    Contact sales
+                  </a>
+                  <a href="#" class="group flex items-center justify-center gap-x-2.5 p-3 text-sm/6 font-semibold text-gray-900 hover:bg-primary hover:text-white">
+                    <svg class="size-5 flex-none text-gray-400 group-hover:text-white" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                      <path fill-rule="evenodd" d="M2.5 3A1.5 1.5 0 0 0 1 4.5v4A1.5 1.5 0 0 0 2.5 10h6A1.5 1.5 0 0 0 10 8.5v-4A1.5 1.5 0 0 0 8.5 3h-6Zm11 2A1.5 1.5 0 0 0 12 6.5v7a1.5 1.5 0 0 0 1.5 1.5h4a1.5 1.5 0 0 0 1.5-1.5v-7A1.5 1.5 0 0 0 17.5 5h-4Zm-10 7A1.5 1.5 0 0 0 2 13.5v2A1.5 1.5 0 0 0 3.5 17h6a1.5 1.5 0 0 0 1.5-1.5v-2A1.5 1.5 0 0 0 9.5 12h-6Z" clip-rule="evenodd" />
+                    </svg>
+                    Customer Success
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>      
+        <a href="./pricing.html" class="text-sm/6 font-semibold text-gray-900">Pricing</a>
+        <div>
+          <div class="hidden lg:flex lg:gap-x-12">
+            <div class="mx-auto max-w-7xl">
+              <button type="button" class="inline-flex items-center gap-x-1 text-sm/6 font-semibold text-gray-900" aria-expanded="false" @click="resource_dropdown = !resource_dropdown" @keydown.escape="resource_dropdown = false">
+                Resources
+                <svg class="size-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                  <path fill-rule="evenodd" d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        
+          <!--
+            'Product' flyout menu, show/hide based on flyout menu state.
+        
+            Entering: "transition ease-out duration-200"
+              From: "opacity-0 -translate-y-1"
+              To: "opacity-100 translate-y-0"
+            Leaving: "transition ease-in duration-150"
+              From: "opacity-100 translate-y-0"
+              To: "opacity-0 -translate-y-1"
+          -->
+          <div class="absolute inset-x-0 top-0 -z-10 bg-white pt-16 shadow-lg ring-1 ring-gray-900/5" 
+            x-show="resource_dropdown"
+            x-transition:enter="transition ease-out duration-200" 
+            x-transition:enter-start="opacity-0 -translate-y-1"
+            x-transition:enter-end="opacity-100 translate-y-0"
+            x-transition:leave="transition ease-in duration-150"
+            x-transition:leave-start="opacity-100 translate-y-0"
+            x-transition:leave-end="opacity-0 -translate-y-1"
+            @click.away="resource_dropdown = false"
+            x-cloak
+            >
+            <div class="mx-auto grid max-w-7xl grid-cols-1 gap-x-8 gap-y-10 px-6 py-10 lg:grid-cols-2 lg:px-8">
+              <div class="grid grid-cols-2 gap-x-6 sm:gap-x-8">
+                <div>
+                  <h3 class="text-sm/6 font-medium text-gray-500">Engagement</h3>
+                  <div class="mt-6 flow-root">
+                    <div class="-my-2">
+                      <a href="#" class="hover:text-primary flex gap-x-4 py-2 text-sm/6 font-semibold text-gray-900">
+                        <svg class="size-6 flex-none text-gray-400" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />
+                        </svg>
+                        About us
+                      </a>
+                      <a href="#" class="hover:text-primary flex gap-x-4 py-2 text-sm/6 font-semibold text-gray-900">
+                        <svg class="size-6 flex-none text-gray-400" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
+                        </svg>
+                        Customers
+                      </a>
+                      <a href="#" class="hover:text-primary flex gap-x-4 py-2 text-sm/6 font-semibold text-gray-900">
+                        <svg class="size-6 flex-none text-gray-400" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 0 1-2.25 2.25M16.5 7.5V18a2.25 2.25 0 0 0 2.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 0 0 2.25 2.25h13.5M6 7.5h3v3H6v-3Z" />
+                        </svg>
+                        Press
+                      </a>
+                      <a href="#" class="hover:text-primary flex gap-x-4 py-2 text-sm/6 font-semibold text-gray-900">
+                        <svg class="size-6 flex-none text-gray-400" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 14.15v4.25c0 1.094-.787 2.036-1.872 2.18-2.087.277-4.216.42-6.378.42s-4.291-.143-6.378-.42c-1.085-.144-1.872-1.086-1.872-2.18v-4.25m16.5 0a2.18 2.18 0 0 0 .75-1.661V8.706c0-1.081-.768-2.015-1.837-2.175a48.114 48.114 0 0 0-3.413-.387m4.5 8.006c-.194.165-.42.295-.673.38A23.978 23.978 0 0 1 12 15.75c-2.648 0-5.195-.429-7.577-1.22a2.016 2.016 0 0 1-.673-.38m0 0A2.18 2.18 0 0 1 3 12.489V8.706c0-1.081.768-2.015 1.837-2.175a48.111 48.111 0 0 1 3.413-.387m7.5 0V5.25A2.25 2.25 0 0 0 13.5 3h-3a2.25 2.25 0 0 0-2.25 2.25v.894m7.5 0a48.667 48.667 0 0 0-7.5 0M12 12.75h.008v.008H12v-.008Z" />
+                        </svg>
+                        Careers
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <h3 class="text-sm/6 font-medium text-gray-500">Resources</h3>
+                  <div class="mt-6 flow-root">
+                    <div class="-my-2">
+                      <a href="#" class="hover:text-primary flex gap-x-4 py-2 text-sm/6 font-semibold text-gray-900">
+                        <svg class="size-6 flex-none text-gray-400" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z" />
+                        </svg>
+                        Blogs
+                      </a>
+                      <a href="#" class="hover:text-primary flex gap-x-4 py-2 text-sm/6 font-semibold text-gray-900">
+                        <svg class="size-6 flex-none text-gray-400 " fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0 1 12 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 0 1 3 12c0-1.605.42-3.113 1.157-4.418" />
+                        </svg>
+                        Partners
+                      </a>
+                      <a href="#" class="hover:text-primary flex gap-x-4 py-2 text-sm/6 font-semibold text-gray-900">
+                        <svg class="size-6 flex-none text-gray-400" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25" />
+                        </svg>
+                        Guides
+                      </a>
+                      <a href="#" class="hover:text-primary flex gap-x-4 py-2 text-sm/6 font-semibold text-gray-900">
+                        <svg class="size-6 flex-none text-gray-400" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="m15.75 10.5 4.72-4.72a.75.75 0 0 1 1.28.53v11.38a.75.75 0 0 1-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25h-9A2.25 2.25 0 0 0 2.25 7.5v9a2.25 2.25 0 0 0 2.25 2.25Z" />
+                        </svg>
+                        Webinars
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="grid grid-cols-1 gap-10 sm:gap-8 lg:grid-cols-2">
+                <h3 class="sr-only">Recent posts</h3>
+                <article class="relative isolate flex max-w-2xl flex-col gap-x-8 gap-y-6 sm:flex-row sm:items-start lg:flex-col lg:items-stretch">
+                  <div class="relative flex-none">
+                    <img class="aspect-[2/1] w-full rounded-lg bg-gray-100 object-cover sm:aspect-video sm:h-32 lg:h-auto" src="./assets/images/blog-1.avif" alt="">
+                    <div class="absolute inset-0 rounded-lg ring-1 ring-inset ring-gray-900/10"></div>
+                  </div>
+                  <div>
+                    <div class="flex items-center gap-x-4">
+                      <time datetime="2024-03-16" class="text-sm/6 text-gray-600">Mar 16, 2024</time>
+                      <a href="#" class="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 text-xs font-medium text-gray-600 hover:bg-gray-100">Marketing</a>
+                    </div>
+                    <h4 class="mt-2 text-sm/6 font-semibold text-gray-900">
+                      <a href="#">
+                        <span class="absolute inset-0"></span>
+                        Boost your conversion rate
+                      </a>
+                    </h4>
+                    <p class="mt-2 text-sm/6 text-gray-600">Et et dolore officia quis nostrud esse aute cillum irure do esse. Eiusmod ad deserunt cupidatat est magna Lorem.</p>
+                  </div>
+                </article>
+                <article class="relative isolate flex max-w-2xl flex-col gap-x-8 gap-y-6 sm:flex-row sm:items-start lg:flex-col lg:items-stretch">
+                  <div class="relative flex-none">
+                    <img class="aspect-[2/1] w-full rounded-lg bg-gray-100 object-cover sm:aspect-video sm:h-32 lg:h-auto" src="./assets/images/blog-2.avif" alt="">
+                    <div class="absolute inset-0 rounded-lg ring-1 ring-inset ring-gray-900/10"></div>
+                  </div>
+                  <div>
+                    <div class="flex items-center gap-x-4">
+                      <time datetime="2024-03-10" class="text-sm/6 text-gray-600">Mar 10, 2024</time>
+                      <a href="#" class="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 text-xs font-medium text-gray-600 hover:bg-gray-100">Sales</a>
+                    </div>
+                    <h4 class="mt-2 text-sm/6 font-semibold text-gray-900">
+                      <a href="#">
+                        <span class="absolute inset-0"></span>
+                        How to use search engine optimization to drive sales
+                      </a>
+                    </h4>
+                    <p class="mt-2 text-sm/6 text-gray-600">Optio cum necessitatibus dolor voluptatum provident commodi et.</p>
+                  </div>
+                </article>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="hidden lg:flex lg:flex-1 lg:justify-end lg:gap-4 lg:align-middle">
+        <a href="#" class="text-sm/6 font-semibold text-gray-900"
+          @click="formActive = true">
+          <div class="p-3 rounded-lg border-primary border-solid border-2 hover:bg-primary transition duration-150 ease-in hover:text-white">
+            Get a Demo
+          </div>
+        </a>
+        <a href="#" class="text-sm/6 font-semibold text-white">
+          <div class="bg-primary p-3 rounded-lg hover:text-gray-900 hover:bg-white border-primary border-solid border-2">
+            Log in <span aria-hidden="true">&rarr;</span>
+          </div>
+        </a>
+      </div>
+      <!-- Mobile menu, show/hide based on menu open state. -->
+    <div class="lg:hidden" role="dialog" aria-modal="true" x-show="open" x-cloak>
+      <!-- Background backdrop, show/hide based on slide-over state. -->
+      <div class="fixed inset-0 z-10" x-show="open"></div>
+      <div class="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10" x-show="open">
+        <div class="flex items-center justify-between">
+          <a href="/" class="-m-1.5 p-1.5">
+            <span class="sr-only">Fyle</span>
+            <img class="h-8 w-auto" src="./assets/icons/fylelogo.svg" alt="company logo">
+          </a>
+          <button type="button" class="-m-2.5 rounded-md p-2.5 text-gray-700" @click="open = false">
+            <span class="sr-only">Close menu</span>
+            <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+        <div class="mt-6 flow-root">
+          <div class="-my-6 divide-y divide-gray-500/10">
+            <div class="space-y-2 py-6">
+              <div class="-mx-3">
+                <button type="button" class="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base/7 font-semibold text-gray-900 hover:bg-gray-50" aria-controls="disclosure-1" aria-expanded="false" @click="features_dropdown = !features_dropdown" @keydown.escape="features_dropdown = false">
+                  Features
+                  <!--
+                    Expand/collapse icon, toggle classes based on menu open state.
+  
+                    Open: "rotate-180", Closed: ""
+                  -->
+                  <svg class="size-5 flex-none" :class="features_dropdown ? 'rotate-180' : ''" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                    <path fill-rule="evenodd" d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
+                  </svg>
+                </button>
+                <!-- 'Product' sub-menu, show/hide based on menu state. -->
+                <div class="mt-2 space-y-2" id="disclosure-1" x-show="features_dropdown" x-cloak>
+                  <a href="#" class="block rounded-lg py-2 pl-6 pr-3 text-sm/7 font-semibold text-gray-900 hover:bg-gray-50">TextMessages</a>
+                  <a href="#" class="block rounded-lg py-2 pl-6 pr-3 text-sm/7 font-semibold text-gray-900 hover:bg-gray-50">Integrations</a>
+                  <a href="#" class="block rounded-lg py-2 pl-6 pr-3 text-sm/7 font-semibold text-gray-900 hover:bg-gray-50">Cards</a>
+                  <a href="#" class="block rounded-lg py-2 pl-6 pr-3 text-sm/7 font-semibold text-gray-900 hover:bg-gray-50">Receipts</a>
+                  <a href="#" class="block rounded-lg py-2 pl-6 pr-3 text-sm/7 font-semibold text-gray-900 hover:bg-gray-50">Expenses</a>
+                  <a href="#" class="block rounded-lg py-2 pl-6 pr-3 text-sm/7 font-semibold text-gray-900 hover:bg-gray-50">Approvals</a>
+                  <a href="#" class="block rounded-lg py-2 pl-6 pr-3 text-sm/7 font-semibold text-gray-900 hover:bg-gray-50">Reimbursements</a>
+                  <a href="#" class="block rounded-lg py-2 pl-6 pr-3 text-sm/7 font-semibold text-gray-900 hover:bg-gray-50">Analytics</a>
+                  <a href="#" class="block rounded-lg py-2 pl-6 pr-3 text-sm/7 font-semibold text-gray-900 hover:bg-gray-50">Budgets</a>
+                  <a href="#" class="block rounded-lg py-2 pl-6 pr-3 text-sm/7 font-semibold text-gray-900 hover:bg-gray-50">Mobile App</a>
+                  <a href="#" class="block rounded-lg py-2 pl-6 pr-3 text-sm/7 font-semibold text-gray-900 hover:bg-gray-50">View all features</a>
+                </div>
+              </div>
+              <div class="-mx-3">
+                <button type="button" class="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base/7 font-semibold text-gray-900 hover:bg-gray-50" aria-controls="disclosure-1" aria-expanded="false" @click="solution_dropdown = !solution_dropdown" @keydown.escape="solution_dropdown = false">
+                  Solutions
+                  <!--
+                    Expand/collapse icon, toggle classes based on menu open state.
+  
+                    Open: "rotate-180", Closed: ""
+                  -->
+                  <svg class="size-5 flex-none" :class="solution_dropdown ? 'rotate-180' : ''" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                    <path fill-rule="evenodd" d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
+                  </svg>
+                </button>
+                <!-- 'Product' sub-menu, show/hide based on menu state. -->
+                <div class="mt-2 space-y-2" id="disclosure-1" x-show="solution_dropdown" x-cloak>
+                  <a href="#" class="block rounded-lg py-2 pl-6 pr-3 text-sm/7 font-semibold text-gray-900 hover:bg-gray-50">Construction</a>
+                  <a href="#" class="block rounded-lg py-2 pl-6 pr-3 text-sm/7 font-semibold text-gray-900 hover:bg-gray-50">Non Profit</a>
+                  <a href="#" class="block rounded-lg py-2 pl-6 pr-3 text-sm/7 font-semibold text-gray-900 hover:bg-gray-50">Technology</a>
+                  <a href="#" class="block rounded-lg py-2 pl-6 pr-3 text-sm/7 font-semibold text-gray-900 hover:bg-gray-50">Legal Services</a>
+                  <a href="#" class="block rounded-lg py-2 pl-6 pr-3 text-sm/7 font-semibold text-gray-900 hover:bg-gray-50">Healthcare</a>
+                  <a href="#" class="block rounded-lg py-2 pl-6 pr-3 text-sm/7 font-semibold text-gray-900 hover:bg-gray-50">Religious Institutions</a>
+                </div>
+              </div>
+              <a href="./pricing.html" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">Pricing</a>
+              <div class="-mx-3">
+                <button type="button" class="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base/7 font-semibold text-gray-900 hover:bg-gray-50" aria-controls="disclosure-1" aria-expanded="false" @click="resource_dropdown = !resource_dropdown" @keydown.escape="resource_dropdown = false">
+                  Resources
+                  <!--
+                    Expand/collapse icon, toggle classes based on menu open state.
+  
+                    Open: "rotate-180", Closed: ""
+                  -->
+                  <svg class="size-5 flex-none" :class="resource_dropdown ? 'rotate-180' : ''" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                    <path fill-rule="evenodd" d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
+                  </svg>
+                </button>
+                <!-- 'Product' sub-menu, show/hide based on menu state. -->
+                <div class="mt-2 space-y-2" id="disclosure-1" x-show="resource_dropdown" x-cloak>
+                  <a href="#" class="block rounded-lg py-2 pl-6 pr-3 text-sm/7 font-semibold text-gray-900 hover:bg-gray-50">About us</a>
+                  <a href="#" class="block rounded-lg py-2 pl-6 pr-3 text-sm/7 font-semibold text-gray-900 hover:bg-gray-50">Customers</a>
+                  <a href="#" class="block rounded-lg py-2 pl-6 pr-3 text-sm/7 font-semibold text-gray-900 hover:bg-gray-50">Press</a>
+                  <a href="#" class="block rounded-lg py-2 pl-6 pr-3 text-sm/7 font-semibold text-gray-900 hover:bg-gray-50">Blogs</a>
+                  <a href="#" class="block rounded-lg py-2 pl-6 pr-3 text-sm/7 font-semibold text-gray-900 hover:bg-gray-50">Partners</a>
+                  <a href="#" class="block rounded-lg py-2 pl-6 pr-3 text-sm/7 font-semibold text-gray-900 hover:bg-gray-50">Guides</a>
+                  <a href="#" class="block rounded-lg py-2 pl-6 pr-3 text-sm/7 font-semibold text-gray-900 hover:bg-gray-50">Webinars</a>
+                  <a href="#" class="block rounded-lg py-2 pl-6 pr-3 text-sm/7 font-semibold text-gray-900 hover:bg-gray-50">Careers</a>
+                </div>
+              </div>
+              </div>
+            </div>
+            <div class="py-6">
+              <a href="#" class="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-gray-900 hover:bg-primary hover:text-white">Log in</a>
+              <a href="#" class="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-gray-900 hover:bg-primary hover:text-white" @click="formActive = true">Get a Demo</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </nav>
+    <div class="fixed h-screen w-screen flex items-center justify-center top-0 overflow-hidden bg-formblur" x-data="formValidation()" 
+      x-show="formActive"
+      @click.away="formActive = false; document.body.classList.remove('overflow-hidden')" 
+      @keydown.escape="formActive = false; document.body.classList.remove('overflow-hidden')"
+      class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
+      x-cloak>
+      <form @submit.prevent="validateForm" novalidate
+      x-show="!showModal && formActive"
+      x-transition:enter="transition ease-out duration-300"
+      x-transition:enter-start="opacity-0 scale-90"
+      x-transition:enter-end="opacity-100 scale-100"
+      x-transition:leave="transition ease-in duration-200"
+      x-transition:leave-start="opacity-100 scale-100"
+      x-transition:leave-end="opacity-0 scale-90"
+      >
+        <div class="mx-auto max-w-7xl p-8 sm:p-12 lg:p-12 bg-white rounded-lg">
+          <!-- We've used 3xl here, but feel free to try other max-widths based on your needs -->
+          <div class="mx-auto max-w-3xl">
+            <div class="flex w-full items-end justify-between">
+              <span class="font-bold text-lg">
+                Talk to a Fyle Specialist
+              </span>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-7 hover:text-primary cursor-pointer" 
+               @click="formActive = false">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+              </svg>                        
+            </div>
+            <div class="my-4">
+              <label for="name" class="block text-sm/6 font-medium text-gray-900">Name</label>
+              <div class="mt-2 grid grid-cols-1">
+                <input type="text" name="name" id="name" 
+                  class="col-start-1 row-start-1 block w-full rounded-md bg-white py-1.5 pl-3 pr-10 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-primary sm:pr-9 sm:text-sm/6" placeholder="Enter Your Name" aria-invalid="true" aria-describedby="name-error"
+                  x-model="form.name" 
+                  @input="clearError('name')"
+                >
+                <svg x-show="errors.name" class="pointer-events-none col-start-1 row-start-1 mr-3 size-5 self-center justify-self-end text-red-500 sm:size-4" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" data-slot="icon">
+                  <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14ZM8 4a.75.75 0 0 1 .75.75v3a.75.75 0 0 1-1.5 0v-3A.75.75 0 0 1 8 4Zm0 8a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z" clip-rule="evenodd" />
+                </svg>
+              </div>
+              <p x-show="errors.name" class="mt-2 text-sm text-red-600" id="name-error" x-text="errors.name"></p>
+            </div>
+            <div class="my-4">
+              <label for="email" class="block text-sm/6 font-medium text-gray-900">Company Email</label>
+              <div class="mt-2 grid grid-cols-1">
+                <input type="email" name="email" id="email" class="col-start-1 row-start-1 block w-full rounded-md bg-white py-1.5 pl-3 pr-10 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-primary sm:pr-9 sm:text-sm/6" placeholder="you@example.com" aria-invalid="true" aria-describedby="email-error"
+                  x-model="form.email" 
+                  @input="clearError('email')" >
+                <svg x-show="errors.email" class="pointer-events-none col-start-1 row-start-1 mr-3 size-5 self-center justify-self-end text-red-500 sm:size-4" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" data-slot="icon">
+                  <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14ZM8 4a.75.75 0 0 1 .75.75v3a.75.75 0 0 1-1.5 0v-3A.75.75 0 0 1 8 4Zm0 8a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z" clip-rule="evenodd" />
+                </svg>
+              </div>
+              <p x-show="errors.email" class="mt-2 text-sm text-red-600" id="email-error" x-text="errors.email"></p>
+            </div> 
+            <div class="my-4">
+              <label for="phone-number" class="block text-sm/6 font-medium text-gray-900">Phone number</label>
+              <div class="mt-2">
+                <div class="flex rounded-md bg-white outline outline-1 -outline-offset-1 outline-gray-300 has-[input:focus-within]:outline has-[input:focus-within]:outline-2 has-[input:focus-within]:-outline-offset-2 has-[input:focus-within]:outline-primary">
+                  <div class="grid shrink-0 grid-cols-1 focus-within:relative">
+                    <span id="country" name="country" autocomplete="country" aria-label="Country" class="col-start-1 row-start-1 w-full appearance-none rounded-md py-1.5 pl-3 pr-7 text-base text-gray-500 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-primary sm:text-sm/6">
+                      US
+                    </span>
+                  </div>
+                  <input type="number" name="phone-number" id="phone-number" class="block min-w-0 grow py-1.5 pl-1 pr-3 text-base text-gray-900 placeholder:text-gray-400 focus:outline focus:outline-0 sm:text-sm/6" placeholder="123-456-7890"
+                    x-model="form.phone" 
+                    @input="clearError('phone')">
+                    <svg x-show="errors.phone" class="pointer-events-none col-start-1 row-start-1 mr-3 size-5 self-center justify-self-end text-red-500 sm:size-4" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" data-slot="icon">
+                      <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14ZM8 4a.75.75 0 0 1 .75.75v3a.75.75 0 0 1-1.5 0v-3A.75.75 0 0 1 8 4Zm0 8a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z" clip-rule="evenodd" />
+                    </svg>
+                </div>
+                <p x-show="errors.phone" class="mt-2 text-sm text-red-600" id="phone-error" x-text="errors.phone"></p>
+              </div>
+            </div> 
+            <div class="my-4" 
+              x-data="{popover: false, options: ['Under 5', '6 to 25', '26 to 50', '51 to 100', '101 to 500', '501 to 1000', 'More than 1000'], selected: null, highlightedIndex: -1 }"
+              x-init="$watch('form.dropdown', value => { if (!value) selected = null })">
+              <label id="listbox-label" class="block text-sm font-medium text-gray-700">Select Company Size</label>
+              <div class="relative mt-2">
+                <button 
+                  type="button" 
+                  class="grid w-full cursor-default grid-cols-1 rounded-md bg-white py-1.5 pl-3 pr-2 text-left text-gray-900 outline outline-1 outline-gray-300 focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-primary sm:text-sm"
+                  @click="popover = !popover" 
+                  @keydown.escape="popover = false"
+                >
+                  <span class="truncate pr-6" x-text="selected || 'Select an option'"></span>
+                  <span class="absolute inset-y-0 right-3 flex items-center pointer-events-none">
+                    <svg class="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                      <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 011.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                    </svg>
+                  </span>
+                </button>
+        
+                <ul 
+                  class="absolute z-10 mt-1 max-h-28 w-full overflow-y-scroll rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm"
+                  x-show="popover"
+                  @click.away="popover = false"
+                  x-transition:leave="transition ease-in duration-100"
+                  x-transition:leave-start="opacity-100"
+                  x-transition:leave-end="opacity-0"
+                  x-cloak
+                >
+                  <template x-for="(option, index) in options" :key="index">
+                    <li 
+                      class="relative cursor-default select-none py-2 pl-8 pr-4 text-gray-900"
+                      @click="form.dropdown = option; selected = option; popover = false" 
+                      @mouseenter="highlightedIndex = index"
+                      @mouseleave="highlightedIndex = -1"
+                      tabindex="0"
+                      :class="highlightedIndex === index ? 'bg-primary text-white outline-none' : 'text-gray-900'"
+                    >
+                      <span class="block truncate" x-text="option"></span>
+                    </li>
+                  </template>
+                </ul>
+              </div>
+              <p x-show="errors.dropdown" class="mt-2 text-sm text-red-600" x-text="errors.dropdown"></p>
+            </div>
+            <div class="my-4">
+              <div class="flex items-center">
+                <!-- Enabled: "bg-indigo-600", Not Enabled: "bg-gray-200" -->
+                <button type="button" class="relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2" role="switch" aria-checked="false" aria-labelledby="terms-and-conditions-label"
+                role="switch" 
+                aria-checked="false" 
+                @click="form.terms = !form.terms; clearError('terms')" 
+                :class="form.terms ? 'bg-primary' : 'bg-gray-200'"
+                >
+                  <!-- Enabled: "translate-x-5", Not Enabled: "translate-x-0" -->
+                  <span aria-hidden="true" class="pointer-events-none inline-block size-5 translate-x-0 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out"
+                  :class="form.terms ? 'translate-x-5' : 'translate-x-0'"
+                  ></span>
+                </button>
+                <span class="ml-3 text-sm" id="terms-and-conditions-label">
+                  <span class="font-medium text-gray-900">I agree with Fyle's terms and conditions, and provide consent to communication from the team.</span>
+                </span>
+              </div>
+              <p x-show="errors.terms" class="mt-2 text-sm text-red-600" x-text="errors.terms"></p>
+            </div>
+            <div class="flex items-center my-4 justify-center">
+              <button type="submit" class="text-center inline-flex items-center gap-x-2 rounded-md bg-primary/90 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary self-center w-28 md:w-40 lg:w-56 lg:text-lg justify-center">
+                Submit
+              </button>
+            </div>                                                  
+          </div>
+        </div>
+      </form>
+      <div 
+        x-show="showModal" 
+        @keydown.escape="showModal = false" 
+        @click.away="showModal = false"
+        x-transition:enter="transition ease-out duration-300"
+        x-transition:enter-start="opacity-0 scale-90"
+        x-transition:enter-end="opacity-100 scale-100"
+        x-transition:leave="transition ease-in duration-200"
+        x-transition:leave-start="opacity-100 scale-100"
+        x-transition:leave-end="opacity-0 scale-90"
+        class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
+        x-cloak
+      >
+        <div class="bg-white rounded-lg shadow-lg w-96 p-6">
+          <h2 class="text-lg font-bold mb-4">Thank You!</h2>
+          <p class="text-gray-700">Your form has been submitted successfully.</p>
+          <div class="mt-6 flex justify-end">
+            <button 
+              @click="showModal = false; formActive = false"
+              class="bg-primary/95 text-white py-2 px-4 rounded-md hover:bg-primary focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  <!-- pricing -->
+  <div class="isolate overflow-hidden">
+    <div class="flow-root bg-gray-900 pb-16 pt-24 sm:pt-32 lg:pb-0" x-data="{ selectedFrequency: 'monthly' }">
+      <div class="mx-auto max-w-7xl px-6 lg:px-8">
+        <div class="relative z-10">
+          <h2 class="mx-auto max-w-4xl text-balance text-center text-5xl font-semibold tracking-tight text-white sm:text-6xl">Pricing that grows with you</h2>
+          <p class="mx-auto mt-6 max-w-2xl text-pretty text-center text-lg font-medium text-gray-400 sm:text-xl/8">Choose an affordable plan that’s packed with the best features for engaging your audience, creating customer loyalty, and driving sales.</p>
+          <div class="mt-16 flex justify-center">
+            <fieldset aria-label="Payment frequency">
+              <div class="grid grid-cols-2 gap-x-1 rounded-full bg-white/5 p-1 text-center text-xs/5 font-semibold text-white">
+                <!-- Checked: "bg-indigo-500" -->
+                <label class="cursor-pointer rounded-full px-2.5 py-1" :class="{ 'bg-indigo-500' : selectedFrequency === 'monthly' }">
+                  <input type="radio" name="frequency" value="monthly" class="sr-only"
+                    @change="selectedFrequency = 'monthly'"
+                  >
+                  <span>Monthly</span>
+                </label>
+                <!-- Checked: "bg-indigo-500" -->
+                <label class="cursor-pointer rounded-full px-2.5 py-1" :class="{ 'bg-indigo-500' : selectedFrequency === 'annually' }">
+                  <input type="radio" name="frequency" value="annually" class="sr-only" @change="selectedFrequency = 'annually'">
+                  <span>Annually</span>
+                </label>
+              </div>
+            </fieldset>
+          </div>
+        </div>
+        <div class="relative mx-auto mt-10 grid max-w-md grid-cols-1 gap-y-8 lg:mx-0 lg:-mb-14 lg:max-w-none lg:grid-cols-3" x-intersect="$el.classList.add('Fade')">
+          <svg viewBox="0 0 1208 1024" aria-hidden="true" class="absolute -bottom-48 left-1/2 h-[64rem] -translate-x-1/2 translate-y-1/2 [mask-image:radial-gradient(closest-side,white,transparent)] lg:-top-48 lg:bottom-auto lg:translate-y-0">
+            <ellipse cx="604" cy="512" fill="url(#d25c25d4-6d43-4bf9-b9ac-1842a30a4867)" rx="604" ry="512" />
+            <defs>
+              <radialGradient id="d25c25d4-6d43-4bf9-b9ac-1842a30a4867">
+                <stop stop-color="#7775D6" />
+                <stop offset="1" stop-color="#E935C1" />
+              </radialGradient>
+            </defs>
+          </svg>
+          <div class="hidden lg:absolute lg:inset-x-px lg:bottom-0 lg:top-4 lg:block lg:rounded-t-2xl lg:bg-gray-800/80 lg:ring-1 lg:ring-white/10" aria-hidden="true"></div>
+          <div class="relative rounded-2xl bg-gray-800/80 ring-1 ring-white/10 lg:bg-transparent lg:pb-14 lg:ring-0">
+            <div class="p-8 lg:pt-12 xl:p-10 xl:pt-14">
+              <h3 id="tier-starter" class="text-sm/6 font-semibold text-white">Growth</h3>
+              <div class="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between lg:flex-col lg:items-stretch">
+                <div class="mt-2 flex items-center gap-x-4">
+                  <!-- Price, update based on frequency toggle state -->
+                  <p class="text-4xl font-semibold tracking-tight text-white" x-text="selectedFrequency === 'monthly' ? '$14.99' : '$11.99'"></p>
+                  <div class="text-sm">
+                    <p class="text-white">USD</p>
+                    <!-- Payment frequency, update based on frequency toggle state -->
+                    <p class="text-gray-400" x-text="selectedFrequency === 'monthly' ? 'per active user*/month, billed monthly' : 'per active user*/month, billed annually' "></p>
+                  </div>
+                </div>
+                <p class="text-sm font-semibold tracking-tight text-gray-400">Minimum billing: 5 users</p>
+                <a href="#" aria-describedby="tier-starter" class="rounded-md bg-white/10 px-3 py-2 text-center text-sm/6 font-semibold text-white hover:bg-white/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">Buy this plan</a>
+              </div>
+              <div class="mt-8 flow-root sm:mt-10">
+                <ul role="list" class="-my-2 divide-y divide-white/5 border-t border-white/5 text-sm/6 text-white lg:border-t-0">
+                  <li class="flex gap-x-3 py-2">
+                    <svg class="h-6 w-5 flex-none text-gray-500" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                      <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                    </svg>
+                    Unlimited expense tracking, receipt scanning, and card feeds (Visa, Mastercard, AMEX)
+                  </li>
+                  <li class="flex gap-x-3 py-2">
+                    <svg class="h-6 w-5 flex-none text-gray-500" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                      <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                    </svg>
+                    Automated reconciliation, mileage tracking, and policy checks
+                  </li>
+                  <li class="flex gap-x-3 py-2">
+                    <svg class="h-6 w-5 flex-none text-gray-500" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                      <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                    </svg>
+                    Integrations with Gmail, Outlook, Slack, QuickBooks, and Xero
+                  </li>
+                  <li class="flex gap-x-3 py-2">
+                    <svg class="h-6 w-5 flex-none text-gray-500" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                      <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                    </svg>
+                    Single-stage approvals and custom expense fields
+                  </li>
+                  <li class="flex gap-x-3 py-2">
+                    <svg class="h-6 w-5 flex-none text-gray-500" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                      <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                    </svg>
+                    Basic support with optional 24/7 live chat (additional fee)
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="relative z-10 rounded-2xl bg-white shadow-xl ring-1 ring-gray-900/10" x-intersect="$el.classList.add('fadeUp')">
+            <div class="p-8 lg:pt-12 xl:p-10 xl:pt-14">
+              <h3 id="tier-scale" class="text-sm/6 font-semibold text-gray-900">Enterprise</h3>
+              <div class="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between lg:flex-col lg:items-stretch">
+                <div class="mt-2 flex items-center gap-x-4">
+                  <!-- Price, update based on frequency toggle state -->
+                  <p class="text-4xl font-semibold tracking-tight text-gray-900">Custom pricing</p>
+                </div>
+                <p class="text-sm font-semibold tracking-tight text-gray-500">for enterprise with 250+ employees</p>
+                <a href="#" aria-describedby="tier-scale" class="rounded-md bg-indigo-600 px-3 py-2 text-center text-sm/6 font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Buy this plan</a>
+              </div>
+              <div class="mt-8 flow-root sm:mt-10">
+                <ul role="list" class="-my-2 divide-y divide-gray-900/5 border-t border-gray-900/5 text-sm/6 text-gray-600 lg:border-t-0">
+                  <li class="flex gap-x-3 py-2">
+                    <svg class="h-6 w-5 flex-none text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                      <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                    </svg>
+                    Includes Business Plan features
+                  </li>
+                  <li class="flex gap-x-3 py-2">
+                    <svg class="h-6 w-5 flex-none text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                      <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                    </svg>
+                    Advanced SSO options (Google, AD, Okta) and IP whitelisting
+                  </li>
+                  <li class="flex gap-x-3 py-2">
+                    <svg class="h-6 w-5 flex-none text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                      <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                    </svg>
+                    Branded account and email customization
+                  </li>
+                  <li class="flex gap-x-3 py-2">
+                    <svg class="h-6 w-5 flex-none text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                      <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                    </svg>
+                    Biannual business reviews and priority feature access
+                  </li>
+                  <li class="flex gap-x-3 py-2">
+                    <svg class="h-6 w-5 flex-none text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                      <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                    </svg>
+                    Direct input into product roadmap
+                  </li>
+                  <li class="flex gap-x-3 py-2">
+                    <svg class="h-6 w-5 flex-none text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                      <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                    </svg>
+                    Dedicated Enterprise Account Manager
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="relative rounded-2xl bg-gray-800/80 ring-1 ring-white/10 lg:bg-transparent lg:pb-14 lg:ring-0">
+            <div class="p-8 lg:pt-12 xl:p-10 xl:pt-14">
+              <h3 id="tier-growth" class="text-sm/6 font-semibold text-white">Business</h3>
+              <div class="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between lg:flex-col lg:items-stretch">
+                <div class="mt-2 flex items-center gap-x-4">
+                  <!-- Price, update based on frequency toggle state -->
+                  <p class="text-4xl font-semibold tracking-tight text-white" x-text="selectedFrequency === 'monthly' ? '$17.99' : '$14.99'"></p>
+                  <div class="text-sm">
+                    <p class="text-white">USD</p>
+                    <!-- Payment frequency, update based on frequency toggle state -->
+                    <p class="text-gray-400"x-text="selectedFrequency === 'monthly' ? 'per active user*/month, billed monthly' : 'per active user*/month, billed annually' "></p>
+                  </div>
+                </div>
+                <p class="text-sm font-semibold tracking-tight text-gray-400">Minimum billing: 10 users</p>
+                <a href="#" aria-describedby="tier-growth" class="rounded-md bg-white/10 px-3 py-2 text-center text-sm/6 font-semibold text-white hover:bg-white/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">Buy this plan</a>
+              </div>
+              <div class="mt-8 flow-root sm:mt-10">
+                <ul role="list" class="-my-2 divide-y divide-white/5 border-t border-white/5 text-sm/6 text-white lg:border-t-0">
+                  <li class="flex gap-x-3 py-2">
+                    <svg class="h-6 w-5 flex-none text-gray-500" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                      <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                    </svg>
+                    Includes Growth Plan features
+                  </li>
+                  <li class="flex gap-x-3 py-2">
+                    <svg class="h-6 w-5 flex-none text-gray-500" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                      <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                    </svg>
+                    Multi-stage approvals, project tracking, and advanced analytics
+                  </li>
+                  <li class="flex gap-x-3 py-2">
+                    <svg class="h-6 w-5 flex-none text-gray-500" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                      <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                    </svg>
+                    Multi-region, multi-currency support
+                  </li>
+                  <li class="flex gap-x-3 py-2">
+                    <svg class="h-6 w-5 flex-none text-gray-500" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                      <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                    </svg>
+                    Custom data exports and API integrations with accounting and HR tools
+                  </li>
+                  <li class="flex gap-x-3 py-2">
+                    <svg class="h-6 w-5 flex-none text-gray-500" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                      <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                    </svg>
+                    ACH reimbursements (US only)
+                  </li>
+                  <li class="flex gap-x-3 py-2">
+                    <svg class="h-6 w-5 flex-none text-gray-500" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                      <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                    </svg>
+                    Premium 24/7 support with a dedicated account manager
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="relative bg-gray-50 lg:pt-14">
+      <div class="mx-auto max-w-7xl px-6 py-24 sm:py-32 lg:px-8">
+        <!-- Feature comparison (up to lg) -->
+        <section aria-labelledby="mobile-comparison-heading" class="lg:hidden">
+          <h2 id="mobile-comparison-heading" class="sr-only">Feature comparison</h2>
+  
+          <div class="mx-auto max-w-2xl space-y-16">
+            <div class="border-t border-gray-900/10">
+              <div class="-mt-px w-72 border-t-2 border-transparent pt-10 md:w-80">
+                <h3 class="text-sm/6 font-semibold text-gray-900">Growth</h3>
+                <p class="mt-1 text-sm/6 text-gray-600">Everything you need to get started.</p>
+              </div>
+  
+              <div class="mt-10 space-y-10">
+                <div>
+                  <h4 class="text-sm/6 font-semibold text-gray-900">Expenses</h4>
+                  <div class="relative mt-6">
+                    <!-- Fake card background -->
+                    <div aria-hidden="true" class="absolute inset-y-0 right-0 hidden w-1/2 rounded-lg bg-white shadow-sm sm:block"></div>
+  
+                    <div class="relative rounded-lg bg-white shadow-sm ring-1 ring-gray-900/10 sm:rounded-none sm:bg-transparent sm:shadow-none sm:ring-0">
+                      <dl class="divide-y divide-gray-200 text-sm/6">
+                        <div class="flex items-center justify-between px-4 py-3 sm:grid sm:grid-cols-2 sm:px-0">
+                          <dt class="pr-4 text-gray-600">Text messaging</dt>
+                          <dd class="flex items-center justify-end sm:justify-center sm:px-4">
+                            <svg class="mx-auto size-5 text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                              <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                            </svg>
+                            <span class="sr-only">Yes</span>
+                          </dd>
+                        </div>
+                        <div class="flex items-center justify-between px-4 py-3 sm:grid sm:grid-cols-2 sm:px-0">
+                          <dt class="pr-4 text-gray-600">Receipt scanning/mobile app</dt>
+                          <dd class="flex items-center justify-end sm:justify-center sm:px-4">
+                            <svg class="mx-auto size-5 text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                              <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                            </svg>
+                            <span class="sr-only">Yes</span>
+                          </dd>
+                        </div>
+                        <div class="flex items-center justify-between px-4 py-3 sm:grid sm:grid-cols-2 sm:px-0">
+                          <dt class="pr-4 text-gray-600">Gmail</dt>
+                          <dd class="flex items-center justify-end sm:justify-center sm:px-4">
+                            <svg class="mx-auto size-5 text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                              <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                            </svg>
+                            <span class="sr-only">Yes</span>
+                          </dd>
+                        </div>
+                        <div class="flex items-center justify-between px-4 py-3 sm:grid sm:grid-cols-2 sm:px-0">
+                          <dt class="pr-4 text-gray-600">Expense Rules</dt>
+                          <dd class="flex items-center justify-end sm:justify-center sm:px-4">
+                            <svg class="mx-auto size-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                              <path d="M6.28 5.22a.75.75 0 0 0-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 1 0 1.06 1.06L10 11.06l3.72 3.72a.75.75 0 1 0 1.06-1.06L11.06 10l3.72-3.72a.75.75 0 0 0-1.06-1.06L10 8.94 6.28 5.22Z" />
+                            </svg>
+                            <span class="sr-only">No</span>
+                          </dd>
+                        </div>
+                      </dl>
+                    </div>
+  
+                    <!-- Fake card border -->
+                    <div aria-hidden="true" class="pointer-events-none absolute inset-y-0 right-0 hidden w-1/2 rounded-lg ring-1 ring-gray-900/10 sm:block"></div>
+                  </div>
+                </div>
+                <div>
+                  <h4 class="text-sm/6 font-semibold text-gray-900">Security</h4>
+                  <div class="relative mt-6">
+                    <!-- Fake card background -->
+                    <div aria-hidden="true" class="absolute inset-y-0 right-0 hidden w-1/2 rounded-lg bg-white shadow-sm sm:block"></div>
+  
+                    <div class="relative rounded-lg bg-white shadow-sm ring-1 ring-gray-900/10 sm:rounded-none sm:bg-transparent sm:shadow-none sm:ring-0">
+                      <dl class="divide-y divide-gray-200 text-sm/6">
+                        <div class="flex items-center justify-between px-4 py-3 sm:grid sm:grid-cols-2 sm:px-0">
+                          <dt class="pr-4 text-gray-600">RBAC</dt>
+                          <dd class="flex items-center justify-end sm:justify-center sm:px-4">
+                            <svg class="mx-auto size-5 text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                              <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                            </svg>
+                            <span class="sr-only">Yes</span>
+                          </dd>
+                        </div>
+                        <div class="flex items-center justify-between px-4 py-3 sm:grid sm:grid-cols-2 sm:px-0">
+                          <dt class="pr-4 text-gray-600">SSO</dt>
+                          <dd class="flex items-center justify-end sm:justify-center sm:px-4">
+                            <svg class="mx-auto size-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                              <path d="M6.28 5.22a.75.75 0 0 0-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 1 0 1.06 1.06L10 11.06l3.72 3.72a.75.75 0 1 0 1.06-1.06L11.06 10l3.72-3.72a.75.75 0 0 0-1.06-1.06L10 8.94 6.28 5.22Z" />
+                            </svg>
+                            <span class="sr-only">No</span>
+                          </dd>
+                        </div>
+                        <div class="flex items-center justify-between px-4 py-3 sm:grid sm:grid-cols-2 sm:px-0">
+                          <dt class="pr-4 text-gray-600">Trusted IP restrictions</dt>
+                          <dd class="flex items-center justify-end sm:justify-center sm:px-4">
+                            <svg class="mx-auto size-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                              <path d="M6.28 5.22a.75.75 0 0 0-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 1 0 1.06 1.06L10 11.06l3.72 3.72a.75.75 0 1 0 1.06-1.06L11.06 10l3.72-3.72a.75.75 0 0 0-1.06-1.06L10 8.94 6.28 5.22Z" />
+                            </svg>
+                            <span class="sr-only">No</span>
+                          </dd>
+                        </div>
+                      </dl>
+                    </div>
+  
+                    <!-- Fake card border -->
+                    <div aria-hidden="true" class="pointer-events-none absolute inset-y-0 right-0 hidden w-1/2 rounded-lg ring-1 ring-gray-900/10 sm:block"></div>
+                  </div>
+                </div>
+                <div>
+                  <h4 class="text-sm/6 font-semibold text-gray-900">Support</h4>
+                  <div class="relative mt-6">
+                    <!-- Fake card background -->
+                    <div aria-hidden="true" class="absolute inset-y-0 right-0 hidden w-1/2 rounded-lg bg-white shadow-sm sm:block"></div>
+  
+                    <div class="relative rounded-lg bg-white shadow-sm ring-1 ring-gray-900/10 sm:rounded-none sm:bg-transparent sm:shadow-none sm:ring-0">
+                      <dl class="divide-y divide-gray-200 text-sm/6">
+                        <div class="flex items-center justify-between px-4 py-3 sm:grid sm:grid-cols-2 sm:px-0">
+                          <dt class="pr-4 text-gray-600">Email support</dt>
+                          <dd class="flex items-center justify-end sm:justify-center sm:px-4">
+                            <svg class="mx-auto size-5 text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                              <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                            </svg>
+                            <span class="sr-only">Yes</span>
+                          </dd>
+                        </div>
+                        <div class="flex items-center justify-between px-4 py-3 sm:grid sm:grid-cols-2 sm:px-0">
+                          <dt class="pr-4 text-gray-600">In-app chat support</dt>
+                          <dd class="flex items-center justify-end sm:justify-center sm:px-4">
+                            <svg class="mx-auto size-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                              <path d="M6.28 5.22a.75.75 0 0 0-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 1 0 1.06 1.06L10 11.06l3.72 3.72a.75.75 0 1 0 1.06-1.06L11.06 10l3.72-3.72a.75.75 0 0 0-1.06-1.06L10 8.94 6.28 5.22Z" />
+                            </svg>
+                            <span class="sr-only">No</span>
+                          </dd>
+                        </div>
+                        <div class="flex items-center justify-between px-4 py-3 sm:grid sm:grid-cols-2 sm:px-0">
+                          <dt class="pr-4 text-gray-600">Account Management</dt>
+                          <dd class="flex items-center justify-end sm:justify-center sm:px-4">
+                            <svg class="mx-auto size-5 text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                              <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                            </svg>
+                            <span class="sr-only">Yes</span>
+                          </dd>
+                        </div>
+                        <div class="flex items-center justify-between px-4 py-3 sm:grid sm:grid-cols-2 sm:px-0">
+                          <dt class="pr-4 text-gray-600">Knowledge base</dt>
+                          <dd class="flex items-center justify-end sm:justify-center sm:px-4">
+                            <svg class="mx-auto size-5 text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                              <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                            </svg>
+                            <span class="sr-only">Yes</span>
+                          </dd>
+                        </div>
+                      </dl>
+                    </div>
+  
+                    <!-- Fake card border -->
+                    <div aria-hidden="true" class="pointer-events-none absolute inset-y-0 right-0 hidden w-1/2 rounded-lg ring-1 ring-gray-900/10 sm:block"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="border-t border-gray-900/10">
+              <div class="-mt-px w-72 border-t-2 border-indigo-600 pt-10 md:w-80">
+                <h3 class="text-sm/6 font-semibold text-indigo-600">Enterprise</h3>
+                <p class="mt-1 text-sm/6 text-gray-600">Added flexibility at scale.</p>
+              </div>
+  
+              <div class="mt-10 space-y-10">
+                <div>
+                  <h4 class="text-sm/6 font-semibold text-gray-900">Expenses</h4>
+                  <div class="relative mt-6">
+                    <!-- Fake card background -->
+                    <div aria-hidden="true" class="absolute inset-y-0 right-0 hidden w-1/2 rounded-lg bg-white shadow-sm sm:block"></div>
+  
+                    <div class="relative rounded-lg bg-white shadow-sm ring-2 ring-indigo-600 sm:rounded-none sm:bg-transparent sm:shadow-none sm:ring-0">
+                      <dl class="divide-y divide-gray-200 text-sm/6">
+                        <div class="flex items-center justify-between px-4 py-3 sm:grid sm:grid-cols-2 sm:px-0">
+                          <dt class="pr-4 text-gray-600">Text messaging</dt>
+                          <dd class="flex items-center justify-end sm:justify-center sm:px-4">
+                            <svg class="mx-auto size-5 text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                              <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                            </svg>
+                            <span class="sr-only">Yes</span>
+                          </dd>
+                        </div>
+                        <div class="flex items-center justify-between px-4 py-3 sm:grid sm:grid-cols-2 sm:px-0">
+                          <dt class="pr-4 text-gray-600">Receipt scanning/mobile app</dt>
+                          <dd class="flex items-center justify-end sm:justify-center sm:px-4">
+                            <svg class="mx-auto size-5 text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                              <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                            </svg>
+                            <span class="sr-only">Yes</span>
+                          </dd>
+                        </div>
+                        <div class="flex items-center justify-between px-4 py-3 sm:grid sm:grid-cols-2 sm:px-0">
+                          <dt class="pr-4 text-gray-600">Gmail</dt>
+                          <dd class="flex items-center justify-end sm:justify-center sm:px-4">
+                            <svg class="mx-auto size-5 text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                              <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                            </svg>
+                            <span class="sr-only">Yes</span>
+                          </dd>
+                        </div>
+                        <div class="flex items-center justify-between px-4 py-3 sm:grid sm:grid-cols-2 sm:px-0">
+                          <dt class="pr-4 text-gray-600">Expense Rules</dt>
+                          <dd class="flex items-center justify-end sm:justify-center sm:px-4">
+                            <svg class="mx-auto size-5 text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                              <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                            </svg>
+                            <span class="sr-only">Yes</span>
+                          </dd>
+                        </div>
+                      </dl>
+                    </div>
+  
+                    <!-- Fake card border -->
+                    <div aria-hidden="true" class="pointer-events-none absolute inset-y-0 right-0 hidden w-1/2 rounded-lg ring-2 ring-indigo-600 sm:block"></div>
+                  </div>
+                </div>
+                <div>
+                  <h4 class="text-sm/6 font-semibold text-gray-900">Security</h4>
+                  <div class="relative mt-6">
+                    <!-- Fake card background -->
+                    <div aria-hidden="true" class="absolute inset-y-0 right-0 hidden w-1/2 rounded-lg bg-white shadow-sm sm:block"></div>
+  
+                    <div class="relative rounded-lg bg-white shadow-sm ring-2 ring-indigo-600 sm:rounded-none sm:bg-transparent sm:shadow-none sm:ring-0">
+                      <dl class="divide-y divide-gray-200 text-sm/6">
+                        <div class="flex items-center justify-between px-4 py-3 sm:grid sm:grid-cols-2 sm:px-0">
+                          <dt class="pr-4 text-gray-600">RBAC</dt>
+                          <dd class="flex items-center justify-end sm:justify-center sm:px-4">
+                            <svg class="mx-auto size-5 text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                              <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                            </svg>
+                            <span class="sr-only">Yes</span>
+                          </dd>
+                        </div>
+                        <div class="flex items-center justify-between px-4 py-3 sm:grid sm:grid-cols-2 sm:px-0">
+                          <dt class="pr-4 text-gray-600">SSO</dt>
+                          <dd class="flex items-center justify-end sm:justify-center sm:px-4">
+                            <svg class="mx-auto size-5 text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                              <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                            </svg>
+                            <span class="sr-only">Yes</span>
+                          </dd>
+                        </div>
+                        <div class="flex items-center justify-between px-4 py-3 sm:grid sm:grid-cols-2 sm:px-0">
+                          <dt class="pr-4 text-gray-600">Trusted IP restrictions</dt>
+                          <dd class="flex items-center justify-end sm:justify-center sm:px-4">
+                            <svg class="mx-auto size-5 text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                              <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                            </svg>
+                            <span class="sr-only">Yes</span>
+                          </dd>
+                        </div>
+                      </dl>
+                    </div>
+  
+                    <!-- Fake card border -->
+                    <div aria-hidden="true" class="pointer-events-none absolute inset-y-0 right-0 hidden w-1/2 rounded-lg ring-2 ring-indigo-600 sm:block"></div>
+                  </div>
+                </div>
+                <div>
+                  <h4 class="text-sm/6 font-semibold text-gray-900">Support</h4>
+                  <div class="relative mt-6">
+                    <!-- Fake card background -->
+                    <div aria-hidden="true" class="absolute inset-y-0 right-0 hidden w-1/2 rounded-lg bg-white shadow-sm sm:block"></div>
+  
+                    <div class="relative rounded-lg bg-white shadow-sm ring-2 ring-indigo-600 sm:rounded-none sm:bg-transparent sm:shadow-none sm:ring-0">
+                      <dl class="divide-y divide-gray-200 text-sm/6">
+                        <div class="flex items-center justify-between px-4 py-3 sm:grid sm:grid-cols-2 sm:px-0">
+                          <dt class="pr-4 text-gray-600">Email support</dt>
+                          <dd class="flex items-center justify-end sm:justify-center sm:px-4">
+                            <svg class="mx-auto size-5 text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                              <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                            </svg>
+                            <span class="sr-only">Yes</span>
+                          </dd>
+                        </div>
+                        <div class="flex items-center justify-between px-4 py-3 sm:grid sm:grid-cols-2 sm:px-0">
+                          <dt class="pr-4 text-gray-600">In-app chat support</dt>
+                          <dd class="flex items-center justify-end sm:justify-center sm:px-4">
+                            <svg class="mx-auto size-5 text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                              <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                            </svg>
+                            <span class="sr-only">Yes</span>
+                          </dd>
+                        </div>
+                        <div class="flex items-center justify-between px-4 py-3 sm:grid sm:grid-cols-2 sm:px-0">
+                          <dt class="pr-4 text-gray-600">Account Management</dt>
+                          <dd class="flex items-center justify-end sm:justify-center sm:px-4">
+                            <svg class="mx-auto size-5 text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                              <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                            </svg>
+                            <span class="sr-only">Yes</span>
+                          </dd>
+                        </div>
+                        <div class="flex items-center justify-between px-4 py-3 sm:grid sm:grid-cols-2 sm:px-0">
+                          <dt class="pr-4 text-gray-600">Knowledge base</dt>
+                          <dd class="flex items-center justify-end sm:justify-center sm:px-4">
+                            <svg class="mx-auto size-5 text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                              <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                            </svg>
+                            <span class="sr-only">Yes</span>
+                          </dd>
+                        </div>
+                      </dl>
+                    </div>
+  
+                    <!-- Fake card border -->
+                    <div aria-hidden="true" class="pointer-events-none absolute inset-y-0 right-0 hidden w-1/2 rounded-lg ring-2 ring-indigo-600 sm:block"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="border-t border-gray-900/10">
+              <div class="-mt-px w-72 border-t-2 border-transparent pt-10 md:w-80">
+                <h3 class="text-sm/6 font-semibold text-gray-900">Business</h3>
+                <p class="mt-1 text-sm/6 text-gray-600">All the extras for your growing team.</p>
+              </div>
+  
+              <div class="mt-10 space-y-10">
+                <div>
+                  <h4 class="text-sm/6 font-semibold text-gray-900">Expenses</h4>
+                  <div class="relative mt-6">
+                    <!-- Fake card background -->
+                    <div aria-hidden="true" class="absolute inset-y-0 right-0 hidden w-1/2 rounded-lg bg-white shadow-sm sm:block"></div>
+  
+                    <div class="relative rounded-lg bg-white shadow-sm ring-1 ring-gray-900/10 sm:rounded-none sm:bg-transparent sm:shadow-none sm:ring-0">
+                      <dl class="divide-y divide-gray-200 text-sm/6">
+                        <div class="flex items-center justify-between px-4 py-3 sm:grid sm:grid-cols-2 sm:px-0">
+                          <dt class="pr-4 text-gray-600">Text messaging</dt>
+                          <dd class="flex items-center justify-end sm:justify-center sm:px-4">
+                            <svg class="mx-auto size-5 text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                              <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                            </svg>
+                            <span class="sr-only">Yes</span>
+                          </dd>
+                        </div>
+                        <div class="flex items-center justify-between px-4 py-3 sm:grid sm:grid-cols-2 sm:px-0">
+                          <dt class="pr-4 text-gray-600">Receipt scanning/mobile app</dt>
+                          <dd class="flex items-center justify-end sm:justify-center sm:px-4">
+                            <svg class="mx-auto size-5 text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                              <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                            </svg>
+                            <span class="sr-only">Yes</span>
+                          </dd>
+                        </div>
+                        <div class="flex items-center justify-between px-4 py-3 sm:grid sm:grid-cols-2 sm:px-0">
+                          <dt class="pr-4 text-gray-600">Gmail</dt>
+                          <dd class="flex items-center justify-end sm:justify-center sm:px-4">
+                            <svg class="mx-auto size-5 text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                              <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                            </svg>
+                            <span class="sr-only">Yes</span>
+                          </dd>
+                        </div>
+                        <div class="flex items-center justify-between px-4 py-3 sm:grid sm:grid-cols-2 sm:px-0">
+                          <dt class="pr-4 text-gray-600">Expense Rules</dt>
+                          <dd class="flex items-center justify-end sm:justify-center sm:px-4">
+                            <svg class="mx-auto size-5 text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                              <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                            </svg>
+                            <span class="sr-only">Yes</span>
+                          </dd>
+                        </div>
+                      </dl>
+                    </div>
+  
+                    <!-- Fake card border -->
+                    <div aria-hidden="true" class="pointer-events-none absolute inset-y-0 right-0 hidden w-1/2 rounded-lg ring-1 ring-gray-900/10 sm:block"></div>
+                  </div>
+                </div>
+                <div>
+                  <h4 class="text-sm/6 font-semibold text-gray-900">Security</h4>
+                  <div class="relative mt-6">
+                    <!-- Fake card background -->
+                    <div aria-hidden="true" class="absolute inset-y-0 right-0 hidden w-1/2 rounded-lg bg-white shadow-sm sm:block"></div>
+  
+                    <div class="relative rounded-lg bg-white shadow-sm ring-1 ring-gray-900/10 sm:rounded-none sm:bg-transparent sm:shadow-none sm:ring-0">
+                      <dl class="divide-y divide-gray-200 text-sm/6">
+                        <div class="flex items-center justify-between px-4 py-3 sm:grid sm:grid-cols-2 sm:px-0">
+                          <dt class="pr-4 text-gray-600">RBAC</dt>
+                          <dd class="flex items-center justify-end sm:justify-center sm:px-4">
+                            <svg class="mx-auto size-5 text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                              <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                            </svg>
+                            <span class="sr-only">Yes</span>
+                          </dd>
+                        </div>
+                        <div class="flex items-center justify-between px-4 py-3 sm:grid sm:grid-cols-2 sm:px-0">
+                          <dt class="pr-4 text-gray-600">SSO
+                            <p class="text-gray-400">at additional cost</p>
+                          </dt>
+                          <dd class="flex items-center justify-end sm:justify-center sm:px-4">
+                            <svg class="mx-auto size-5 text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                              <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                            </svg>
+                            <span class="sr-only">Yes</span>
+                          </dd>
+                        </div>
+                        <div class="flex items-center justify-between px-4 py-3 sm:grid sm:grid-cols-2 sm:px-0">
+                          <dt class="pr-4 text-gray-600">Trusted IP restrictions</dt>
+                          <dd class="flex items-center justify-end sm:justify-center sm:px-4">
+                            <svg class="mx-auto size-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                              <path d="M6.28 5.22a.75.75 0 0 0-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 1 0 1.06 1.06L10 11.06l3.72 3.72a.75.75 0 1 0 1.06-1.06L11.06 10l3.72-3.72a.75.75 0 0 0-1.06-1.06L10 8.94 6.28 5.22Z" />
+                            </svg>
+                            <span class="sr-only">No</span>
+                          </dd>
+                        </div>
+                      </dl>
+                    </div>
+  
+                    <!-- Fake card border -->
+                    <div aria-hidden="true" class="pointer-events-none absolute inset-y-0 right-0 hidden w-1/2 rounded-lg ring-1 ring-gray-900/10 sm:block"></div>
+                  </div>
+                </div>
+                <div>
+                  <h4 class="text-sm/6 font-semibold text-gray-900">Support</h4>
+                  <div class="relative mt-6">
+                    <!-- Fake card background -->
+                    <div aria-hidden="true" class="absolute inset-y-0 right-0 hidden w-1/2 rounded-lg bg-white shadow-sm sm:block"></div>
+  
+                    <div class="relative rounded-lg bg-white shadow-sm ring-1 ring-gray-900/10 sm:rounded-none sm:bg-transparent sm:shadow-none sm:ring-0">
+                      <dl class="divide-y divide-gray-200 text-sm/6">
+                        <div class="flex items-center justify-between px-4 py-3 sm:grid sm:grid-cols-2 sm:px-0">
+                          <dt class="pr-4 text-gray-600">Email support</dt>
+                          <dd class="flex items-center justify-end sm:justify-center sm:px-4">
+                            <svg class="mx-auto size-5 text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                              <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                            </svg>
+                            <span class="sr-only">Yes</span>
+                          </dd>
+                        </div>
+                        <div class="flex items-center justify-between px-4 py-3 sm:grid sm:grid-cols-2 sm:px-0">
+                          <dt class="pr-4 text-gray-600">In-app chat support</dt>
+                          <dd class="flex items-center justify-end sm:justify-center sm:px-4">
+                            <svg class="mx-auto size-5 text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                              <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                            </svg>
+                            <span class="sr-only">Yes</span>
+                          </dd>
+                        </div>
+                        <div class="flex items-center justify-between px-4 py-3 sm:grid sm:grid-cols-2 sm:px-0">
+                          <dt class="pr-4 text-gray-600">Account Management</dt>
+                          <dd class="flex items-center justify-end sm:justify-center sm:px-4">
+                            <svg class="mx-auto size-5 text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                              <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                            </svg>
+                            <span class="sr-only">Yes</span>
+                          </dd>
+                        </div>
+                        <div class="flex items-center justify-between px-4 py-3 sm:grid sm:grid-cols-2 sm:px-0">
+                          <dt class="pr-4 text-gray-600">Knowledge base</dt>
+                          <dd class="flex items-center justify-end sm:justify-center sm:px-4">
+                            <svg class="mx-auto size-5 text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                              <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                            </svg>
+                            <span class="sr-only">Yes</span>
+                          </dd>
+                        </div>
+                      </dl>
+                    </div>
+  
+                    <!-- Fake card border -->
+                    <div aria-hidden="true" class="pointer-events-none absolute inset-y-0 right-0 hidden w-1/2 rounded-lg ring-1 ring-gray-900/10 sm:block"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+  
+        <!-- Feature comparison (lg+) -->
+        <section aria-labelledby="comparison-heading" class="hidden lg:block">
+          <h2 id="comparison-heading" class="sr-only">Feature comparison</h2>
+  
+          <div class="grid grid-cols-4 gap-x-8 border-t border-gray-900/10 before:block">
+            <div aria-hidden="true" class="-mt-px">
+              <div class="border-t-2 border-transparent pt-10">
+                <p class="text-sm/6 font-semibold text-gray-900">Growth</p>
+                <p class="mt-1 text-sm/6 text-gray-600">Everything you need to get started.</p>
+              </div>
+            </div>
+            <div aria-hidden="true" class="-mt-px">
+              <div class="border-t-2 border-indigo-600 pt-10">
+                <p class="text-sm/6 font-semibold text-indigo-600">Enterprise</p>
+                <p class="mt-1 text-sm/6 text-gray-600">Added flexibility at scale.</p>
+              </div>
+            </div>
+            <div aria-hidden="true" class="-mt-px">
+              <div class="border-t-2 border-transparent pt-10">
+                <p class="text-sm/6 font-semibold text-gray-900">Business</p>
+                <p class="mt-1 text-sm/6 text-gray-600">All the extras for your growing team.</p>
+              </div>
+            </div>
+          </div>
+  
+          <div class="-mt-6 space-y-16">
+            <div>
+              <h3 class="text-sm/6 font-semibold text-gray-900">Expenses</h3>
+              <div class="relative -mx-8 mt-10">
+                <!-- Fake card backgrounds -->
+                <div class="absolute inset-x-8 inset-y-0 grid grid-cols-4 gap-x-8 before:block" aria-hidden="true">
+                  <div class="size-full rounded-lg bg-white shadow-sm"></div>
+                  <div class="size-full rounded-lg bg-white shadow-sm"></div>
+                  <div class="size-full rounded-lg bg-white shadow-sm"></div>
+                </div>
+  
+                <table class="relative w-full border-separate border-spacing-x-8">
+                  <thead>
+                    <tr class="text-left">
+                      <th scope="col">
+                        <span class="sr-only">Feature</span>
+                      </th>
+                      <th scope="col">
+                        <span class="sr-only">Growth tier</span>
+                      </th>
+                      <th scope="col">
+                        <span class="sr-only">Enterprise tier</span>
+                      </th>
+                      <th scope="col">
+                        <span class="sr-only">Business tier</span>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row" class="w-1/4 py-3 pr-4 text-left text-sm/6 font-normal text-gray-900">
+                        Text messaging
+                        <div class="absolute inset-x-8 mt-3 h-px bg-gray-200"></div>
+                      </th>
+                      <td class="relative w-1/4 px-4 py-0 text-center">
+                        <span class="relative size-full py-3">
+                          <svg class="mx-auto size-5 text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                            <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                          </svg>
+                          <span class="sr-only">Yes</span>
+                        </span>
+                      </td>
+                      <td class="relative w-1/4 px-4 py-0 text-center">
+                        <span class="relative size-full py-3">
+                          <svg class="mx-auto size-5 text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                            <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                          </svg>
+                          <span class="sr-only">Yes</span>
+                        </span>
+                      </td>
+                      <td class="relative w-1/4 px-4 py-0 text-center">
+                        <span class="relative size-full py-3">
+                          <svg class="mx-auto size-5 text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                            <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                          </svg>
+                          <span class="sr-only">Yes</span>
+                        </span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row" class="w-1/4 py-3 pr-4 text-left text-sm/6 font-normal text-gray-900">
+                        Receipt scanning/mobile app
+                        <div class="absolute inset-x-8 mt-3 h-px bg-gray-200"></div>
+                      </th>
+                      <td class="relative w-1/4 px-4 py-0 text-center">
+                        <span class="relative size-full py-3">
+                          <svg class="mx-auto size-5 text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                            <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                          </svg>
+                          <span class="sr-only">Yes</span>
+                        </span>
+                      </td>
+                      <td class="relative w-1/4 px-4 py-0 text-center">
+                        <span class="relative size-full py-3">
+                          <svg class="mx-auto size-5 text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                            <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                          </svg>
+                          <span class="sr-only">Yes</span>
+                        </span>
+                      </td>
+                      <td class="relative w-1/4 px-4 py-0 text-center">
+                        <span class="relative size-full py-3">
+                          <svg class="mx-auto size-5 text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                            <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                          </svg>
+                          <span class="sr-only">Yes</span>
+                        </span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row" class="w-1/4 py-3 pr-4 text-left text-sm/6 font-normal text-gray-900">
+                        Gmail
+                        <div class="absolute inset-x-8 mt-3 h-px bg-gray-200"></div>
+                      </th>
+                      <td class="relative w-1/4 px-4 py-0 text-center">
+                        <span class="relative size-full py-3">
+                          <svg class="mx-auto size-5 text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                            <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                          </svg>
+                          <span class="sr-only">Yes</span>
+                        </span>
+                      </td>
+                      <td class="relative w-1/4 px-4 py-0 text-center">
+                        <span class="relative size-full py-3">
+                          <svg class="mx-auto size-5 text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                            <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                          </svg>
+                          <span class="sr-only">Yes</span>
+                        </span>
+                      </td>
+                      <td class="relative w-1/4 px-4 py-0 text-center">
+                        <span class="relative size-full py-3">
+                          <svg class="mx-auto size-5 text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                            <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                          </svg>
+                          <span class="sr-only">Yes</span>
+                        </span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row" class="w-1/4 py-3 pr-4 text-left text-sm/6 font-normal text-gray-900">Expense Rules</th>
+                      <td class="relative w-1/4 px-4 py-0 text-center">
+                        <span class="relative size-full py-3">
+                          <svg class="mx-auto size-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                            <path d="M6.28 5.22a.75.75 0 0 0-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 1 0 1.06 1.06L10 11.06l3.72 3.72a.75.75 0 1 0 1.06-1.06L11.06 10l3.72-3.72a.75.75 0 0 0-1.06-1.06L10 8.94 6.28 5.22Z" />
+                          </svg>
+                          <span class="sr-only">No</span>
+                        </span>
+                      </td>
+                      <td class="relative w-1/4 px-4 py-0 text-center">
+                        <span class="relative size-full py-3">
+                          <svg class="mx-auto size-5 text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                            <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                          </svg>
+                          <span class="sr-only">Yes</span>
+                        </span>
+                      </td>
+                      <td class="relative w-1/4 px-4 py-0 text-center">
+                        <span class="relative size-full py-3">
+                          <svg class="mx-auto size-5 text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                            <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                          </svg>
+                          <span class="sr-only">Yes</span>
+                        </span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+  
+                <!-- Fake card borders -->
+                <div class="pointer-events-none absolute inset-x-8 inset-y-0 grid grid-cols-4 gap-x-8 before:block" aria-hidden="true">
+                  <div class="rounded-lg ring-1 ring-gray-900/10"></div>
+                  <div class="rounded-lg ring-2 ring-indigo-600"></div>
+                  <div class="rounded-lg ring-1 ring-gray-900/10"></div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <h3 class="text-sm/6 font-semibold text-gray-900">Security</h3>
+              <div class="relative -mx-8 mt-10">
+                <!-- Fake card backgrounds -->
+                <div class="absolute inset-x-8 inset-y-0 grid grid-cols-4 gap-x-8 before:block" aria-hidden="true">
+                  <div class="size-full rounded-lg bg-white shadow-sm"></div>
+                  <div class="size-full rounded-lg bg-white shadow-sm"></div>
+                  <div class="size-full rounded-lg bg-white shadow-sm"></div>
+                </div>
+  
+                <table class="relative w-full border-separate border-spacing-x-8">
+                  <thead>
+                    <tr class="text-left">
+                      <th scope="col">
+                        <span class="sr-only">Feature</span>
+                      </th>
+                      <th scope="col">
+                        <span class="sr-only">Growth tier</span>
+                      </th>
+                      <th scope="col">
+                        <span class="sr-only">Enterprise tier</span>
+                      </th>
+                      <th scope="col">
+                        <span class="sr-only">Business tier</span>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row" class="w-1/4 py-3 pr-4 text-left text-sm/6 font-normal text-gray-900">
+                        RBAC
+                        <div class="absolute inset-x-8 mt-3 h-px bg-gray-200"></div>
+                      </th>
+                      <td class="relative w-1/4 px-4 py-0 text-center">
+                        <span class="relative size-full py-3">
+                          <svg class="mx-auto size-5 text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                            <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                          </svg>
+                          <span class="sr-only">Yes</span>
+                        </span>
+                      </td>
+                      <td class="relative w-1/4 px-4 py-0 text-center">
+                        <span class="relative size-full py-3">
+                          <svg class="mx-auto size-5 text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                            <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                          </svg>
+                          <span class="sr-only">Yes</span>
+                        </span>
+                      </td>
+                      <td class="relative w-1/4 px-4 py-0 text-center">
+                        <span class="relative size-full py-3">
+                          <svg class="mx-auto size-5 text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                            <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                          </svg>
+                          <span class="sr-only">Yes</span>
+                        </span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row" class="w-1/4 py-3 pr-4 text-left text-sm/6 font-normal text-gray-900">
+                        SSO
+                        <div class="absolute inset-x-8 mt-3 h-px bg-gray-200"></div>
+                      </th>
+                      <td class="relative w-1/4 px-4 py-0 text-center">
+                        <span class="relative size-full py-3">
+                          <svg class="mx-auto size-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                            <path d="M6.28 5.22a.75.75 0 0 0-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 1 0 1.06 1.06L10 11.06l3.72 3.72a.75.75 0 1 0 1.06-1.06L11.06 10l3.72-3.72a.75.75 0 0 0-1.06-1.06L10 8.94 6.28 5.22Z" />
+                          </svg>
+                          <span class="sr-only">No</span>
+                        </span>
+                      </td>
+                      <td class="relative w-1/4 px-4 py-0 text-center">
+                        <span class="relative size-full py-3">
+                          <svg class="mx-auto size-5 text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                            <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                          </svg>
+                          <span class="sr-only">Yes</span>
+                        </span>
+                      </td>
+                      <td class="relative w-1/4 px-4 py-0 text-center">
+                        <span class="relative size-full py-3">
+                          <svg class="mx-auto size-5 text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                            <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                          </svg>
+                          <span class="sr-only">Yes</span>
+                          <p class="text-gray-400 text-xs">at additional cost</p>
+                        </span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row" class="w-1/4 py-3 pr-4 text-left text-sm/6 font-normal text-gray-900">
+                        Trusted IP restrictions
+                        <div class="absolute inset-x-8 mt-3 h-px bg-gray-200"></div>
+                      </th>
+                      <td class="relative w-1/4 px-4 py-0 text-center">
+                        <span class="relative size-full py-3">
+                          <svg class="mx-auto size-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                            <path d="M6.28 5.22a.75.75 0 0 0-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 1 0 1.06 1.06L10 11.06l3.72 3.72a.75.75 0 1 0 1.06-1.06L11.06 10l3.72-3.72a.75.75 0 0 0-1.06-1.06L10 8.94 6.28 5.22Z" />
+                          </svg>
+                          <span class="sr-only">No</span>
+                        </span>
+                      </td>
+                      <td class="relative w-1/4 px-4 py-0 text-center">
+                        <span class="relative size-full py-3">
+                          <svg class="mx-auto size-5 text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                            <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                          </svg>
+                          <span class="sr-only">Yes</span>
+                        </span>
+                      </td>
+                      <td class="relative w-1/4 px-4 py-0 text-center">
+                        <span class="relative size-full py-3">
+                          <svg class="mx-auto size-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                            <path d="M6.28 5.22a.75.75 0 0 0-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 1 0 1.06 1.06L10 11.06l3.72 3.72a.75.75 0 1 0 1.06-1.06L11.06 10l3.72-3.72a.75.75 0 0 0-1.06-1.06L10 8.94 6.28 5.22Z" />
+                          </svg>
+                          <span class="sr-only">No</span>
+                        </span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+  
+                <!-- Fake card borders -->
+                <div class="pointer-events-none absolute inset-x-8 inset-y-0 grid grid-cols-4 gap-x-8 before:block" aria-hidden="true">
+                  <div class="rounded-lg ring-1 ring-gray-900/10"></div>
+                  <div class="rounded-lg ring-2 ring-indigo-600"></div>
+                  <div class="rounded-lg ring-1 ring-gray-900/10"></div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <h3 class="text-sm/6 font-semibold text-gray-900">Support</h3>
+              <div class="relative -mx-8 mt-10">
+                <!-- Fake card backgrounds -->
+                <div class="absolute inset-x-8 inset-y-0 grid grid-cols-4 gap-x-8 before:block" aria-hidden="true">
+                  <div class="size-full rounded-lg bg-white shadow-sm"></div>
+                  <div class="size-full rounded-lg bg-white shadow-sm"></div>
+                  <div class="size-full rounded-lg bg-white shadow-sm"></div>
+                </div>
+  
+                <table class="relative w-full border-separate border-spacing-x-8">
+                  <thead>
+                    <tr class="text-left">
+                      <th scope="col">
+                        <span class="sr-only">Feature</span>
+                      </th>
+                      <th scope="col">
+                        <span class="sr-only">Growth tier</span>
+                      </th>
+                      <th scope="col">
+                        <span class="sr-only">Enterprise tier</span>
+                      </th>
+                      <th scope="col">
+                        <span class="sr-only">Business tier</span>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row" class="w-1/4 py-3 pr-4 text-left text-sm/6 font-normal text-gray-900">
+                        Email support
+                        <div class="absolute inset-x-8 mt-3 h-px bg-gray-200"></div>
+                      </th>
+                      <td class="relative w-1/4 px-4 py-0 text-center">
+                        <span class="relative size-full py-3">
+                          <svg class="mx-auto size-5 text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                            <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                          </svg>
+                          <span class="sr-only">Yes</span>
+                        </span>
+                      </td>
+                      <td class="relative w-1/4 px-4 py-0 text-center">
+                        <span class="relative size-full py-3">
+                          <svg class="mx-auto size-5 text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                            <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                          </svg>
+                          <span class="sr-only">Yes</span>
+                        </span>
+                      </td>
+                      <td class="relative w-1/4 px-4 py-0 text-center">
+                        <span class="relative size-full py-3">
+                          <svg class="mx-auto size-5 text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                            <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                          </svg>
+                          <span class="sr-only">Yes</span>
+                        </span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row" class="w-1/4 py-3 pr-4 text-left text-sm/6 font-normal text-gray-900">
+                        In-app chat support
+                        <div class="absolute inset-x-8 mt-3 h-px bg-gray-200"></div>
+                      </th>
+                      <td class="relative w-1/4 px-4 py-0 text-center">
+                        <span class="relative size-full py-3">
+                          <svg class="mx-auto size-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                            <path d="M6.28 5.22a.75.75 0 0 0-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 1 0 1.06 1.06L10 11.06l3.72 3.72a.75.75 0 1 0 1.06-1.06L11.06 10l3.72-3.72a.75.75 0 0 0-1.06-1.06L10 8.94 6.28 5.22Z" />
+                          </svg>
+                          <span class="sr-only">No</span>
+                        </span>
+                      </td>
+                      <td class="relative w-1/4 px-4 py-0 text-center">
+                        <span class="relative size-full py-3">
+                          <svg class="mx-auto size-5 text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                            <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                          </svg>
+                          <span class="sr-only">Yes</span>
+                        </span>
+                      </td>
+                      <td class="relative w-1/4 px-4 py-0 text-center">
+                        <span class="relative size-full py-3">
+                          <svg class="mx-auto size-5 text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                            <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                          </svg>
+                          <span class="sr-only">Yes</span>
+                        </span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row" class="w-1/4 py-3 pr-4 text-left text-sm/6 font-normal text-gray-900">
+                        Account Management
+                        <div class="absolute inset-x-8 mt-3 h-px bg-gray-200"></div>
+                      </th>
+                      <td class="relative w-1/4 px-4 py-0 text-center">
+                        <span class="relative size-full py-3">
+                          <svg class="mx-auto size-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                            <path d="M6.28 5.22a.75.75 0 0 0-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 1 0 1.06 1.06L10 11.06l3.72 3.72a.75.75 0 1 0 1.06-1.06L11.06 10l3.72-3.72a.75.75 0 0 0-1.06-1.06L10 8.94 6.28 5.22Z" />
+                          </svg>
+                          <span class="sr-only">No</span>
+                        </span>
+                      </td>
+                      <td class="relative w-1/4 px-4 py-0 text-center">
+                        <span class="relative size-full py-3">
+                          <svg class="mx-auto size-5 text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                            <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                          </svg>
+                          <span class="sr-only">Yes</span>
+                        </span>
+                      </td>
+                      <td class="relative w-1/4 px-4 py-0 text-center">
+                        <span class="relative size-full py-3">
+                          <svg class="mx-auto size-5 text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                            <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                          </svg>
+                          <span class="sr-only">Yes</span>
+                        </span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row" class="w-1/4 py-3 pr-4 text-left text-sm/6 font-normal text-gray-900">Knowledge base</th>
+                      <td class="relative w-1/4 px-4 py-0 text-center">
+                        <span class="relative size-full py-3">
+                          <svg class="mx-auto size-5 text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                            <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                          </svg>
+                          <span class="sr-only">Yes</span>
+                        </span>
+                      </td>
+                      <td class="relative w-1/4 px-4 py-0 text-center">
+                        <span class="relative size-full py-3">
+                          <svg class="mx-auto size-5 text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                            <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                          </svg>
+                          <span class="sr-only">Yes</span>
+                        </span>
+                      </td>
+                      <td class="relative w-1/4 px-4 py-0 text-center">
+                        <span class="relative size-full py-3">
+                          <svg class="mx-auto size-5 text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                            <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                          </svg>
+                          <span class="sr-only">Yes</span>
+                        </span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+  
+                <!-- Fake card borders -->
+                <div class="pointer-events-none absolute inset-x-8 inset-y-0 grid grid-cols-4 gap-x-8 before:block" aria-hidden="true">
+                  <div class="rounded-lg ring-1 ring-gray-900/10"></div>
+                  <div class="rounded-lg ring-2 ring-indigo-600"></div>
+                  <div class="rounded-lg ring-1 ring-gray-900/10"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQs -->
+  <div class="bg-gray-900">
+    <div class="mx-auto max-w-7xl px-6 py-24 sm:py-32 lg:px-8 lg:py-40">
+      <div class="mx-auto max-w-4xl divide-y divide-white/10">
+        <h2 class="text-4xl font-semibold tracking-tight text-white sm:text-5xl">Frequently asked questions</h2>
+        <dl class="mt-10 space-y-6 divide-y divide-white/10">
+          <div class="pt-6"  x-data="{expanded: false}">
+            <dt>
+              <!-- Expand/collapse question button -->
+              <button type="button" class="flex w-full items-start justify-between text-left text-white" aria-controls="faq-0" aria-expanded="false" @click="expanded = !expanded">
+                <span class="text-base/7 font-semibold">Does Fyle charge for all users?</span>
+                <span class="ml-6 flex h-7 items-center">
+                  <!--
+                    Icon when question is collapsed.
+  
+                    Item expanded: "hidden", Item collapsed: ""
+                  -->
+                  <svg class="size-6" :class="expanded ? 'hidden':'' " fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6" />
+                  </svg>
+                  <!--
+                    Icon when question is expanded.
+  
+                    Item expanded: "", Item collapsed: "hidden"
+                  -->
+                  <svg class="size-6" :class="expanded ? '':'hidden' " fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M18 12H6" />
+                  </svg>
+                </span>
+              </button>
+            </dt>
+            <dd class="mt-2 pr-12" id="faq-0" x-show="expanded" 
+            x-transition:enter="transition ease-out duration-200" 
+            x-transition:enter-start="opacity-0 -translate-y-1"
+            x-transition:enter-end="opacity-100 translate-y-0"
+            x-transition:leave="transition ease-in duration-150"
+            x-transition:leave-start="opacity-100 translate-y-0"
+            x-transition:leave-end="opacity-0 -translate-y-1"
+            x-cloak>
+              <p class="text-base/7 text-gray-300">No, Fyle only charges you for active users, who create at least 1 expense in a month, or, have a corporate card connected to the platform with a transaction on it in that month.</p>
+            </dd>
+          </div>
+  
+          <!-- More questions... -->
+          <div class="pt-6"  x-data="{expanded: false}">
+            <dt>
+              <!-- Expand/collapse question button -->
+              <button type="button" class="flex w-full items-start justify-between text-left text-white" aria-controls="faq-0" aria-expanded="false" @click="expanded = !expanded">
+                <span class="text-base/7 font-semibold">
+                  Does Fyle charge per expense reports?
+                </span>
+                <span class="ml-6 flex h-7 items-center">
+                  <!--
+                    Icon when question is collapsed.
+  
+                    Item expanded: "hidden", Item collapsed: ""
+                  -->
+                  <svg class="size-6" :class="expanded ? 'hidden':'' " fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6" />
+                  </svg>
+                  <!--
+                    Icon when question is expanded.
+  
+                    Item expanded: "", Item collapsed: "hidden"
+                  -->
+                  <svg class="size-6" :class="expanded ? '':'hidden' " fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M18 12H6" />
+                  </svg>
+                </span>
+              </button>
+            </dt>
+            <dd class="mt-2 pr-12" id="faq-0" x-show="expanded" 
+            x-transition:enter="transition ease-out duration-200" 
+            x-transition:enter-start="opacity-0 -translate-y-1"
+            x-transition:enter-end="opacity-100 translate-y-0"
+            x-transition:leave="transition ease-in duration-150"
+            x-transition:leave-start="opacity-100 translate-y-0"
+            x-transition:leave-end="opacity-0 -translate-y-1"
+            x-cloak>
+              <p class="text-base/7 text-gray-300">
+                No, users can submit unlimited expenses & reports in each plan. This means you can onboard all your users, but only pay for the ones that actively create an expense.
+              </p>
+            </dd>
+          </div>
+
+          <div class="pt-6"  x-data="{expanded: false}">
+            <dt>
+              <!-- Expand/collapse question button -->
+              <button type="button" class="flex w-full items-start justify-between text-left text-white" aria-controls="faq-0" aria-expanded="false" @click="expanded = !expanded">
+                <span class="text-base/7 font-semibold">
+                  Does Fyle provide implementation support?
+                </span>
+                <span class="ml-6 flex h-7 items-center">
+                  <!--
+                    Icon when question is collapsed.
+  
+                    Item expanded: "hidden", Item collapsed: ""
+                  -->
+                  <svg class="size-6" :class="expanded ? 'hidden':'' " fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6" />
+                  </svg>
+                  <!--
+                    Icon when question is expanded.
+  
+                    Item expanded: "", Item collapsed: "hidden"
+                  -->
+                  <svg class="size-6" :class="expanded ? '':'hidden' " fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M18 12H6" />
+                  </svg>
+                </span>
+              </button>
+            </dt>
+            <dd class="mt-2 pr-12" id="faq-0" x-show="expanded" 
+              x-transition:enter="transition ease-out duration-200" 
+              x-transition:enter-start="opacity-0 -translate-y-1"
+              x-transition:enter-end="opacity-100 translate-y-0"
+              x-transition:leave="transition ease-in duration-150"
+              x-transition:leave-start="opacity-100 translate-y-0"
+              x-transition:leave-end="opacity-0 -translate-y-1"
+              x-cloak>
+              <p class="text-base/7 text-gray-300">
+                Yes, we offer implementation support via a dedicated account manager for a one-time fee. Additional fees apply for setting up certain accounting integrations.
+              </p>
+            </dd>
+          </div>
+
+          <div class="pt-6"  x-data="{expanded: false}">
+            <dt>
+              <!-- Expand/collapse question button -->
+              <button type="button" class="flex w-full items-start justify-between text-left text-white" aria-controls="faq-0" aria-expanded="false" @click="expanded = !expanded">
+                <span class="text-base/7 font-semibold">
+                  Does Fyle offer discounts?
+                </span>
+                <span class="ml-6 flex h-7 items-center">
+                  <!--
+                    Icon when question is collapsed.
+  
+                    Item expanded: "hidden", Item collapsed: ""
+                  -->
+                  <svg class="size-6" :class="expanded ? 'hidden':'' " fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6" />
+                  </svg>
+                  <!--
+                    Icon when question is expanded.
+  
+                    Item expanded: "", Item collapsed: "hidden"
+                  -->
+                  <svg class="size-6" :class="expanded ? '':'hidden' " fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M18 12H6" />
+                  </svg>
+                </span>
+              </button>
+            </dt>
+            <dd class="mt-2 pr-12" id="faq-0" x-show="expanded" 
+              x-transition:enter="transition ease-out duration-200" 
+              x-transition:enter-start="opacity-0 -translate-y-1"
+              x-transition:enter-end="opacity-100 translate-y-0"
+              x-transition:leave="transition ease-in duration-150"
+              x-transition:leave-start="opacity-100 translate-y-0"
+              x-transition:leave-end="opacity-0 -translate-y-1"
+              x-cloak>
+              <p class="text-base/7 text-gray-300">
+                Yes, we offer special discounts to non-profits and educational institutions. Just let us know when you talk to us.
+              </p>    
+            </dd>
+          </div>
+
+          <div class="pt-6"  x-data="{expanded: false}">
+            <dt>
+              <!-- Expand/collapse question button -->
+              <button type="button" class="flex w-full items-start justify-between text-left text-white" aria-controls="faq-0" aria-expanded="false" @click="expanded = !expanded">
+                <span class="text-base/7 font-semibold">
+                  How secure is Fyle?
+                </span>
+                <span class="ml-6 flex h-7 items-center">
+                  <!--
+                    Icon when question is collapsed.
+  
+                    Item expanded: "hidden", Item collapsed: ""
+                  -->
+                  <svg class="size-6" :class="expanded ? 'hidden':'' " fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6" />
+                  </svg>
+                  <!--
+                    Icon when question is expanded.
+  
+                    Item expanded: "", Item collapsed: "hidden"
+                  -->
+                  <svg class="size-6" :class="expanded ? '':'hidden' " fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M18 12H6" />
+                  </svg>
+                </span>
+              </button>
+            </dt>
+            <dd class="mt-2 pr-12" id="faq-0" x-show="expanded" 
+            x-transition:enter="transition ease-out duration-200" 
+            x-transition:enter-start="opacity-0 -translate-y-1"
+            x-transition:enter-end="opacity-100 translate-y-0"
+            x-transition:leave="transition ease-in duration-150"
+            x-transition:leave-start="opacity-100 translate-y-0"
+            x-transition:leave-end="opacity-0 -translate-y-1"
+            x-cloak>
+              <p class="text-base/7 text-gray-300">
+                Fyle is SOC2 Type 1 and Type 2, GDPR, and PCI DSS compliant. We ensure all your data is stored and processed in a safe, protected manner.
+              </p>
+            </dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </div>
+  
+
+  <!-- footer -->
+  <footer class="bg-white border-t-2">
+    <div class="mx-auto max-w-7xl px-6 pb-8 pt-16 lg:px-8">
+      <div class="xl:grid xl:grid-cols-3 xl:gap-8">
+        <img class="h-9" src="./assets/icons/fylelogo.svg" alt="Company name">
+        <div class="mt-16 grid grid-cols-2 gap-8 xl:col-span-2 xl:mt-0">
+          <div class="md:grid md:grid-cols-2 md:gap-8">
+            <div>
+              <h3 class="text-sm/6 font-semibold text-gray-900">Solutions</h3>
+              <ul role="list" class="mt-6 space-y-4">
+                <li>
+                  <a href="#" class="text-sm/6 text-gray-600 hover:text-gray-900">Construction</a>
+                </li>
+                <li>
+                  <a href="#" class="text-sm/6 text-gray-600 hover:text-gray-900">Non Profit</a>
+                </li>
+                <li>
+                  <a href="#" class="text-sm/6 text-gray-600 hover:text-gray-900">Technology</a>
+                </li>
+                <li>
+                  <a href="#" class="text-sm/6 text-gray-600 hover:text-gray-900">Legal Services</a>
+                </li>
+                <li>
+                  <a href="#" class="text-sm/6 text-gray-600 hover:text-gray-900">Healthcare</a>
+                </li>
+                <li>
+                  <a href="#" class="text-sm/6 text-gray-600 hover:text-gray-900">Religious Institutions</a>
+                </li>
+              </ul>
+            </div>
+            <div class="mt-10 md:mt-0">
+              <h3 class="text-sm/6 font-semibold text-gray-900">Support</h3>
+              <ul role="list" class="mt-6 space-y-4">
+                <li>
+                  <a href="#" class="text-sm/6 text-gray-600 hover:text-gray-900">Submit ticket</a>
+                </li>
+                <li>
+                  <a href="#" class="text-sm/6 text-gray-600 hover:text-gray-900">Documentation</a>
+                </li>
+                <li>
+                  <a href="#" class="text-sm/6 text-gray-600 hover:text-gray-900">Guides</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="md:grid md:grid-cols-2 md:gap-8">
+            <div>
+              <h3 class="text-sm/6 font-semibold text-gray-900">Company</h3>
+              <ul role="list" class="mt-6 space-y-4">
+                <li>
+                  <a href="#" class="text-sm/6 text-gray-600 hover:text-gray-900">About</a>
+                </li>
+                <li>
+                  <a href="#" class="text-sm/6 text-gray-600 hover:text-gray-900">Blog</a>
+                </li>
+                <li>
+                  <a href="#" class="text-sm/6 text-gray-600 hover:text-gray-900">Jobs</a>
+                </li>
+                <li>
+                  <a href="#" class="text-sm/6 text-gray-600 hover:text-gray-900">Press</a>
+                </li>
+              </ul>
+            </div>
+            <div class="mt-10 md:mt-0">
+              <h3 class="text-sm/6 font-semibold text-gray-900">Legal</h3>
+              <ul role="list" class="mt-6 space-y-4">
+                <li>
+                  <a href="#" class="text-sm/6 text-gray-600 hover:text-gray-900">Terms of service</a>
+                </li>
+                <li>
+                  <a href="#" class="text-sm/6 text-gray-600 hover:text-gray-900">Privacy policy</a>
+                </li>
+                <li>
+                  <a href="#" class="text-sm/6 text-gray-600 hover:text-gray-900">License</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mt-8 border-t border-gray-900/10 pt-8 md:flex md:items-center md:justify-between">
+        <div class="flex gap-x-6 md:order-2">
+          <a href="#" class="text-gray-600 hover:text-gray-800">
+            <span class="sr-only">Facebook</span>
+            <svg class="size-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd" />
+            </svg>
+          </a>
+          <a href="#" class="text-gray-600 hover:text-gray-800">
+            <span class="sr-only">Instagram</span>
+            <svg class="size-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" clip-rule="evenodd" />
+            </svg>
+          </a>
+          <a href="#" class="text-gray-600 hover:text-gray-800">
+            <span class="sr-only">X</span>
+            <svg class="size-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M13.6823 10.6218L20.2391 3H18.6854L12.9921 9.61788L8.44486 3H3.2002L10.0765 13.0074L3.2002 21H4.75404L10.7663 14.0113L15.5685 21H20.8131L13.6819 10.6218H13.6823ZM11.5541 13.0956L10.8574 12.0991L5.31391 4.16971H7.70053L12.1742 10.5689L12.8709 11.5655L18.6861 19.8835H16.2995L11.5541 13.096V13.0956Z" />
+            </svg>
+          </a>
+          <a href="#" class="text-gray-600 hover:text-gray-800">
+            <span class="sr-only">GitHub</span>
+            <svg class="size-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd" />
+            </svg>
+          </a>
+          <a href="#" class="text-gray-600 hover:text-gray-800">
+            <span class="sr-only">YouTube</span>
+            <svg class="size-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill-rule="evenodd" d="M19.812 5.418c.861.23 1.538.907 1.768 1.768C21.998 8.746 22 12 22 12s0 3.255-.418 4.814a2.504 2.504 0 0 1-1.768 1.768c-1.56.419-7.814.419-7.814.419s-6.255 0-7.814-.419a2.505 2.505 0 0 1-1.768-1.768C2 15.255 2 12 2 12s0-3.255.417-4.814a2.507 2.507 0 0 1 1.768-1.768C5.744 5 11.998 5 11.998 5s6.255 0 7.814.418ZM15.194 12 10 15V9l5.194 3Z" clip-rule="evenodd" />
+            </svg>
+          </a>
+        </div>
+        <p class="mt-8 text-sm/6 text-gray-600 md:order-1 md:mt-0">&copy; 2024 Your Company, Inc. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+  <script src="./scripts.js"></script>
+</body>
+</html>
