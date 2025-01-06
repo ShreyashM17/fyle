@@ -70,3 +70,21 @@ function formValidation() {
     },
   };
 }
+
+//Number counting animation
+function counting(){
+  let valueDisplays = document.querySelectorAll(".num");
+let interval = 10;
+valueDisplays.forEach((valueDisplay) => {
+  let startValue = 1093;
+  let endValue = parseInt(valueDisplay.getAttribute("data-val"));
+  let duration = Math.floor(interval / endValue);
+  let counter = setInterval(function () {
+    startValue += 1000;
+    valueDisplay.textContent = startValue;
+    if (startValue == endValue) {
+      clearInterval(counter);
+    }
+  }, duration);
+});
+};
