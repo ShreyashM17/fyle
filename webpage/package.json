@@ -4,13 +4,15 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "npx tailwindcss -i ./src/input.css -o ./src/output.css --watch"
+    "build-css": "npx tailwindcss -i ./src/assets/css/input.css -o ./src/assets/css/output.css --watch"
   },
   "author": "",
   "license": "ISC",
   "description": "",
   "devDependencies": {
     "tailwindcss": "^3.4.17",
-    "tailwindcss-animated": "^1.1.2"
+    "tailwindcss-animated": "^1.1.2",
+    "webpack": "^5.97.1",
+    "webpack-cli": "^6.0.1"
   }
 }
