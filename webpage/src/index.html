@@ -20,7 +20,7 @@
       <div class="flex lg:flex-1" x-show="!open">
         <a href="/" class="-m-1.5 p-1.5">
           <span class="sr-only text-primary">Fyle</span>
-          <img class="h-8 w-auto" src="./assets/icons/fylelogo.svg" alt="company logo">
+          <img class="h-8 w-auto" src="./assets/icons/fylelogo.svg" alt="company logo" loading="eager">
         </a>
       </div>
       <div class="flex lg:hidden">
@@ -505,7 +505,7 @@
         <div class="flex items-center justify-between">
           <a href="/" class="-m-1.5 p-1.5">
             <span class="sr-only text-primary">Fyle</span>
-            <img class="h-8 w-auto" src="./assets/icons/fylelogo.svg" alt="company logo">
+            <img class="h-8 w-auto" src="./assets/icons/fylelogo.svg" alt="company logo" loading="eager">
           </a>
           <button type="button" class="-m-2.5 rounded-md p-2.5 text-gray-700" @click="open = false">
             <span class="sr-only">Close menu</span>
@@ -816,7 +816,7 @@
       <div class="mx-auto mt-16 flex max-w-2xl sm:mt-24 lg:ml-10 lg:mr-0 lg:mt-0 lg:max-w-none lg:flex-none xl:ml-32">
         <div class="max-w-3xl flex-none sm:max-w-5xl lg:max-w-none">
           <div class="-m-2 rounded-xl bg-gray-900/5 p-2 ring-1 ring-inset ring-gray-900/10 lg:-m-4 lg:rounded-2xl lg:p-4">
-            <img src="./assets/images/fyle-demo.avif" alt="App screenshot" width="2432" height="1442" class="w-[76rem] rounded-md shadow-2xl ring-1 ring-gray-900/10 overflow-hidden" x-intersect="$el.classList.add('fadeLeft')">
+            <img src="./assets/images/fyle-demo.avif" alt="App screenshot" width="2432" height="1442" class="w-[76rem] rounded-md shadow-2xl ring-1 ring-gray-900/10 overflow-hidden" x-intersect="$el.classList.add('fadeLeft')" loading="eager">
           </div>
         </div>
       </div>
@@ -826,11 +826,11 @@
   <div class="bg-white pb-24 sm:pb-32">
     <div class="mx-auto max-w-7xl px-6 lg:px-8">
       <div class="mx-auto grid max-w-lg grid-cols-4 items-center gap-x-8 gap-y-12 sm:max-w-xl sm:grid-cols-6 sm:gap-x-10 sm:gap-y-14 lg:mx-0 lg:max-w-none lg:grid-cols-5">
-        <img class="col-span-2 max-h-12 w-full object-contain lg:col-span-1" src="./assets/images/customer/logo/woodford-logo-3x.avif" alt="Transistor" width="158" height="48">
-        <img class="col-span-2 max-h-12 w-full object-contain lg:col-span-1" src="./assets/images/customer/logo/disruptive-logo-3x.avif" alt="Reform" width="158" height="48">
-        <img class="col-span-2 max-h-12 w-full object-contain lg:col-span-1" src="./assets/images/customer/logo/3cx.avif" alt="Tuple" width="158" height="48">
-        <img class="col-span-2 max-h-12 w-full object-contain sm:col-start-2 lg:col-span-1" src="./assets/images/customer/logo/im.avif" alt="SavvyCal" width="158" height="48">
-        <img class="col-span-2 col-start-2 max-h-12 w-full object-contain sm:col-start-auto lg:col-span-1" src="./assets/images/customer/logo/tst.avif" alt="Statamic" width="158" height="48">
+        <img class="col-span-2 max-h-12 w-full object-contain lg:col-span-1" src="./assets/images/customer/logo/woodford-logo-3x.avif" alt="Transistor" width="158" height="48" loading="lazy">
+        <img class="col-span-2 max-h-12 w-full object-contain lg:col-span-1" src="./assets/images/customer/logo/disruptive-logo-3x.avif" alt="Reform" width="158" height="48" loading="lazy">
+        <img class="col-span-2 max-h-12 w-full object-contain lg:col-span-1" src="./assets/images/customer/logo/3cx.avif" alt="Tuple" width="158" height="48" loading="lazy">
+        <img class="col-span-2 max-h-12 w-full object-contain sm:col-start-2 lg:col-span-1" src="./assets/images/customer/logo/im.avif" alt="SavvyCal" width="158" height="48" loading="lazy">
+        <img class="col-span-2 col-start-2 max-h-12 w-full object-contain sm:col-start-auto lg:col-span-1" src="./assets/images/customer/logo/tst.avif" alt="Statamic" width="158" height="48" loading="lazy">
       </div>
       <div class="mt-16 flex justify-center">
         <p class="relative rounded-full bg-gray-50 px-4 py-1.5 text-sm/6 text-gray-600 ring-1 ring-inset ring-gray-900/5">
@@ -884,7 +884,7 @@
         <a class="relative lg:col-span-3 hover:scale-105 transition-transform" href="#">
           <div class="absolute inset-px rounded-lg bg-white max-lg:rounded-t-[2rem] lg:rounded-tl-[2rem]"></div>
           <div class="relative flex h-full flex-col overflow-hidden rounded-[calc(theme(borderRadius.lg)+1px)] max-lg:rounded-t-[calc(2rem+1px)] lg:rounded-tl-[calc(2rem+1px)]">
-            <img class="h-80 object-cover pl-10 object-right" src="./assets/images/credit-card-receipt-tracking-and-expense-form-2x.avif" alt="">
+            <img class="h-80 object-cover pl-10 object-right" src="./assets/images/credit-card-receipt-tracking-and-expense-form-2x.avif" alt="" loading="lazy">
             <div class="p-10 pt-4">
               <h3 class="text-sm/4 font-semibold text-primary">Automate</h3>
               <p class="mt-2 text-lg font-medium tracking-tight text-gray-950">Credit Card reconciliation</p>
@@ -896,7 +896,7 @@
         <a class="relative lg:col-span-3 hover:scale-105 transition-transform" href="#">
           <div class="absolute inset-px rounded-lg bg-white lg:rounded-tr-[2rem]"></div>
           <div class="relative flex h-full flex-col overflow-hidden rounded-[calc(theme(borderRadius.lg)+1px)] lg:rounded-tr-[calc(2rem+1px)]">
-            <img class="h-80 object-contain object-left lg:object-right" src="./assets/images/embedded.avif" alt="">
+            <img loading="lazy" class="h-80 object-contain object-left lg:object-right" src="./assets/images/embedded.avif" alt="">
             <div class="p-10 pt-4">
               <h3 class="text-sm/4 font-semibold text-primary">Embedded</h3>
               <p class="mt-2 text-lg font-medium tracking-tight text-gray-950">White-label Expense Management</p>
@@ -908,7 +908,7 @@
         <a class="relative lg:col-span-2 hover:scale-105 transition-transform" href="#">
           <div class="absolute inset-px rounded-lg bg-white lg:rounded-bl-[2rem]"></div>
           <div class="relative flex h-full flex-col overflow-hidden rounded-[calc(theme(borderRadius.lg)+1px)] lg:rounded-bl-[calc(2rem+1px)]">
-            <img class="h-80 object-cover object-left pl-10" src="./assets/images/security-badges-3x.avif" alt="">
+            <img loading="lazy" class="h-80 object-cover object-left pl-10" src="./assets/images/security-badges-3x.avif" alt="">
             <div class="p-10 pt-4">
               <h3 class="text-sm/4 font-semibold text-primary">Security</h3>
               <p class="mt-2 text-lg font-medium tracking-tight text-gray-950">Bank-grade security</p>
@@ -920,7 +920,7 @@
         <a class="group relative lg:col-span-2 hover:scale-105 transition-transform" href="#">
           <div class="absolute inset-px rounded-lg bg-white"></div>
           <div class="relative flex h-full flex-col overflow-hidden rounded-[calc(theme(borderRadius.lg)+1px)]">
-            <img class="h-80 object-cover group-hover:rotate-6 ease-in-out duration-300" src="./assets/images/integrations.avif" alt="">
+            <img loading="lazy" class="h-80 object-cover group-hover:rotate-6 ease-in-out duration-300" src="./assets/images/integrations.avif" alt="">
             <div class="p-10 pt-4">
               <h3 class="text-sm/4 font-semibold text-primary">Integrations</h3>
               <p class="mt-2 text-lg font-medium tracking-tight text-gray-950">Sync expenses with your ERP</p>
@@ -932,7 +932,7 @@
         <a class="group relative lg:col-span-2 hover:scale-105 transition-transform" href="#">
           <div class="absolute inset-px rounded-lg bg-white max-lg:rounded-b-[2rem] lg:rounded-br-[2rem]"></div>
           <div class="relative flex h-full flex-col overflow-hidden rounded-[calc(theme(borderRadius.lg)+1px)] max-lg:rounded-b-[calc(2rem+1px)] lg:rounded-br-[calc(2rem+1px)]">
-            <img class="h-80 object-cover group-hover:opacity-100 opacity-60" src="./assets/images/bento.avif" alt="">
+            <img loading="lazy" class="h-80 object-cover group-hover:opacity-100 opacity-60" src="./assets/images/bento.avif" alt="">
             <div class="p-10 pt-4">
               <h3 class="text-sm/4 font-semibold text-primary">Customer Support</h3>
               <p class="mt-2 text-lg font-medium tracking-tight text-gray-950">Our Attention under 30 minutes</p>
@@ -1135,7 +1135,7 @@
             <p>“Fyle has made it very convenient for us to see our expenses as soon as employees swipe their cards. We get to know almost right away when employees have missed a receipt with the real-time card feeds, instead of waiting for the bank statement to be uploaded at the end of the week.”</p>
           </blockquote>
           <figcaption class="flex flex-wrap items-center gap-x-4 gap-y-4 border-t border-gray-900/10 px-6 py-4 sm:flex-nowrap">
-            <img class="size-10 flex-none rounded-full bg-gray-50 object-cover" src="./assets/images/customer/emma-from-woodford-3x.avif" alt="">
+            <img loading="lazy" class="size-10 flex-none rounded-full bg-gray-50 object-cover" src="./assets/images/customer/emma-from-woodford-3x.avif" alt="">
             <div class="flex-auto">
               <div class="font-semibold">Emma Riehlman</div>
               <div class="text-gray-600">Accounts Payable, Woodford</div>
@@ -1149,7 +1149,7 @@
                 <p>“Fyle is an exceptional expense management solution that has consistently proven its value. It stands out as a robust and user-friendly platform, meticulously designed to cater to the needs of both employees and finance/accounting professionals alike.”</p>
               </blockquote>
               <figcaption class="mt-6 flex items-center gap-x-4">
-                <img class="size-10 rounded-full bg-gray-50 object-cover" src="./assets/images/customer/Disruptive-client-img-3x.avif" alt="">
+                <img loading="lazy" class="size-10 rounded-full bg-gray-50 object-cover" src="./assets/images/customer/Disruptive-client-img-3x.avif" alt="">
                 <div>
                   <div class="font-semibold">Ashley Bolnick</div>
                   <div class="text-gray-600">Controller, Disruptive</div>
@@ -1161,7 +1161,7 @@
                 <p>“Fyle transformed our employee expense reimbursement process. We've reduced turnaround time and errors caused by paper-based expense processes. Expense fraud is unheard of since all expenses are automatically compliant with our corporate expense policies.”</p>
               </blockquote>
               <figcaption class="mt-6 flex items-center gap-x-4">
-                <img class="size-10 rounded-full bg-gray-50 object-cover" src="./assets/images/customer/zinaida-ellidou-281x335.avif" alt="">
+                <img loading="lazy" class="size-10 rounded-full bg-gray-50 object-cover" src="./assets/images/customer/zinaida-ellidou-281x335.avif" alt="">
                 <div>
                   <div class="font-semibold">Zinaida Ellidou</div>
                   <div class="text-gray-600">Accounts Administrator, 3CX</div>
@@ -1176,7 +1176,7 @@
                 <p>“Fyle has been a game-changer for our team! Before Fyle, our team was inconsistent in their expense reporting, and it took hours and days of work for our accountant to manually enter everything in QuickBooks. With Fyle, our team has had consistency and accountability, our accountant spends far less time entering expenses since QuickBooks links with Fyle!”</p>
               </blockquote>
               <figcaption class="mt-6 flex items-center gap-x-4">
-                <img class="size-10 rounded-full bg-gray-50 object-cover" src="./assets/images/customer/brittany-3x.avif" alt="">
+                <img loading="lazy" class="size-10 rounded-full bg-gray-50 object-cover" src="./assets/images/customer/brittany-3x.avif" alt="">
                 <div>
                   <div class="font-semibold">Brittany Kizer</div>
                   <div class="text-gray-600">Administration Director, Citylight Lincoln</div>
@@ -1193,7 +1193,7 @@
                 <p>“Fyle works so well for us, it saves us time to reconcile dozens of charges throughout the month and organizes the individual reports coming from each cardholder. It typically takes each cardholder less than an hour each month to complete all necessary transactions to accurately and completely file their expense reports.”</p>
               </blockquote>
               <figcaption class="mt-6 flex items-center gap-x-4">
-                <img class="size-10 rounded-full bg-gray-50 object-cover" src="./assets/images/customer/robert-macklin.avif" alt="">
+                <img loading="lazy" class="size-10 rounded-full bg-gray-50 object-cover" src="./assets/images/customer/robert-macklin.avif" alt="">
                 <div>
                   <div class="font-semibold">Bob Boyich</div>
                   <div class="text-gray-600">Chief Operating Officer, Bluewire</div>
@@ -1208,7 +1208,7 @@
                 <p>“Switching to Fyle has truly improved the way we manage our expenses, by saving us a tremendous amount of time that used to be spent manually inputting receipts and reconciling expenses.”</p>
               </blockquote>
               <figcaption class="mt-6 flex items-center gap-x-4">
-                <img class="size-10 rounded-full bg-gray-50 object-cover" src="./assets/images/customer/carmen.avif" alt="">
+                <img loading="lazy" class="size-10 rounded-full bg-gray-50 object-cover" src="./assets/images/customer/carmen.avif" alt="">
                 <div>
                   <div class="font-semibold">Carmen Andino</div>
                   <div class="text-gray-600">Executive Assistant, Lisco</div>
@@ -1220,7 +1220,7 @@
                 <p>“Before Fyle, we were trying to track thousands of dollars in credit card expenses and reimbursements across many employees each month with an Excel spreadsheet. It was a nightmare! With the help of the wonderful team at Fyle, we now have a system that has streamlined the process and made it much more professional for all of us at Bright Futures for Youth.”</p>
               </blockquote>
               <figcaption class="mt-6 flex items-center gap-x-4">
-                <img class="size-10 rounded-full bg-gray-50" src="./assets/images/customer/dena-3x.avif" alt="">
+                <img loading="lazy" class="size-10 rounded-full bg-gray-50" src="./assets/images/customer/dena-3x.avif" alt="">
                 <div>
                   <div class="font-semibold">Dena Valin Malakian</div>
                   <div class="text-gray-600">Associate Director, Bright Futures For Youth</div>
@@ -1238,7 +1238,7 @@
   <footer class="bg-white border-t-2">
     <div class="mx-auto max-w-7xl px-6 pb-8 pt-16 lg:px-8">
       <div class="xl:grid xl:grid-cols-3 xl:gap-8">
-        <img class="h-9" src="./assets/icons/fylelogo.svg" alt="Company name">
+        <img loading="lazy" class="h-9" src="./assets/icons/fylelogo.svg" alt="Company name">
         <div class="mt-16 grid grid-cols-2 gap-8 xl:col-span-2 xl:mt-0">
           <div class="md:grid md:grid-cols-2 md:gap-8">
             <div>
