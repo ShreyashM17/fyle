@@ -19,8 +19,8 @@
     <nav class="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global" x-data="{open: false, solution_dropdown: false, features_dropdown: false, resource_dropdown: false }">
       <div class="flex lg:flex-1" x-show="!open">
         <a href="/" class="-m-1.5 p-1.5">
-          <span class="sr-only">Fyle</span>
-          <img class="h-8 w-auto" src="./assets/icons/fylelogo.svg" alt="company logo">
+          <span class="sr-only text-primary">Fyle</span>
+          <img class="h-8 w-auto" src="./assets/icons/fylelogo.svg" alt="company logo" loading="eager">
         </a>
       </div>
       <div class="flex lg:hidden">
@@ -329,7 +329,7 @@
                     </svg>
                     Contact sales
                   </a>
-                  <a href="#" class="group flex items-center justify-center gap-x-2.5 p-3 text-sm/6 font-semibold text-gray-900 hover:bg-primary hover:text-white">
+                  <a href="./customers.html" class="group flex items-center justify-center gap-x-2.5 p-3 text-sm/6 font-semibold text-gray-900 hover:bg-primary hover:text-white">
                     <svg class="size-5 flex-none text-gray-400 group-hover:text-white" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
                       <path fill-rule="evenodd" d="M2.5 3A1.5 1.5 0 0 0 1 4.5v4A1.5 1.5 0 0 0 2.5 10h6A1.5 1.5 0 0 0 10 8.5v-4A1.5 1.5 0 0 0 8.5 3h-6Zm11 2A1.5 1.5 0 0 0 12 6.5v7a1.5 1.5 0 0 0 1.5 1.5h4a1.5 1.5 0 0 0 1.5-1.5v-7A1.5 1.5 0 0 0 17.5 5h-4Zm-10 7A1.5 1.5 0 0 0 2 13.5v2A1.5 1.5 0 0 0 3.5 17h6a1.5 1.5 0 0 0 1.5-1.5v-2A1.5 1.5 0 0 0 9.5 12h-6Z" clip-rule="evenodd" />
                     </svg>
@@ -340,7 +340,7 @@
             </div>
           </div>
         </div>      
-        <a href="./pricing.html" class="text-sm/6 font-semibold text-gray-900">Pricing</a>
+        <a href="./pricing.html" class="text-sm/6 font-semibold text-gray-900 hover:text-primary">Pricing</a>
         <div>
           <div class="hidden lg:flex lg:gap-x-12">
             <div class="mx-auto max-w-7xl">
@@ -386,7 +386,7 @@
                         </svg>
                         About us
                       </a>
-                      <a href="#" class="hover:text-primary flex gap-x-4 py-2 text-sm/6 font-semibold text-gray-900">
+                      <a href="./customers.html" class="hover:text-primary flex gap-x-4 py-2 text-sm/6 font-semibold text-gray-900">
                         <svg class="size-6 flex-none text-gray-400" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
                           <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
                         </svg>
@@ -443,7 +443,7 @@
                 <h3 class="sr-only">Recent posts</h3>
                 <article class="relative isolate flex max-w-2xl flex-col gap-x-8 gap-y-6 sm:flex-row sm:items-start lg:flex-col lg:items-stretch">
                   <div class="relative flex-none">
-                    <img class="aspect-[2/1] w-full rounded-lg bg-gray-100 object-cover sm:aspect-video sm:h-32 lg:h-auto" src="./assets/images/blog-1.avif" alt="">
+                    <img loading="lazy" class="aspect-[2/1] w-full rounded-lg bg-gray-100 object-cover sm:aspect-video sm:h-32 lg:h-auto" src="./assets/images/blog-1.avif" alt="">
                     <div class="absolute inset-0 rounded-lg ring-1 ring-inset ring-gray-900/10"></div>
                   </div>
                   <div>
@@ -462,7 +462,7 @@
                 </article>
                 <article class="relative isolate flex max-w-2xl flex-col gap-x-8 gap-y-6 sm:flex-row sm:items-start lg:flex-col lg:items-stretch">
                   <div class="relative flex-none">
-                    <img class="aspect-[2/1] w-full rounded-lg bg-gray-100 object-cover sm:aspect-video sm:h-32 lg:h-auto" src="./assets/images/blog-2.avif" alt="">
+                    <img loading="lazy" class="aspect-[2/1] w-full rounded-lg bg-gray-100 object-cover sm:aspect-video sm:h-32 lg:h-auto" src="./assets/images/blog-2.avif" alt="">
                     <div class="absolute inset-0 rounded-lg ring-1 ring-inset ring-gray-900/10"></div>
                   </div>
                   <div>
@@ -504,8 +504,8 @@
       <div class="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10" x-show="open">
         <div class="flex items-center justify-between">
           <a href="/" class="-m-1.5 p-1.5">
-            <span class="sr-only">Fyle</span>
-            <img class="h-8 w-auto" src="./assets/icons/fylelogo.svg" alt="company logo">
+            <span class="sr-only text-primary">Fyle</span>
+            <img class="h-8 w-auto" src="./assets/icons/fylelogo.svg" alt="company logo" loading="eager">
           </a>
           <button type="button" class="-m-2.5 rounded-md p-2.5 text-gray-700" @click="open = false">
             <span class="sr-only">Close menu</span>
@@ -582,7 +582,7 @@
                 <!-- 'Product' sub-menu, show/hide based on menu state. -->
                 <div class="mt-2 space-y-2" id="disclosure-1" x-show="resource_dropdown" x-cloak>
                   <a href="#" class="block rounded-lg py-2 pl-6 pr-3 text-sm/7 font-semibold text-gray-900 hover:bg-gray-50">About us</a>
-                  <a href="#" class="block rounded-lg py-2 pl-6 pr-3 text-sm/7 font-semibold text-gray-900 hover:bg-gray-50">Customers</a>
+                  <a href="./customers.html" class="block rounded-lg py-2 pl-6 pr-3 text-sm/7 font-semibold text-gray-900 hover:bg-gray-50">Customers</a>
                   <a href="#" class="block rounded-lg py-2 pl-6 pr-3 text-sm/7 font-semibold text-gray-900 hover:bg-gray-50">Press</a>
                   <a href="#" class="block rounded-lg py-2 pl-6 pr-3 text-sm/7 font-semibold text-gray-900 hover:bg-gray-50">Blogs</a>
                   <a href="#" class="block rounded-lg py-2 pl-6 pr-3 text-sm/7 font-semibold text-gray-900 hover:bg-gray-50">Partners</a>
@@ -602,14 +602,14 @@
       </div>
     </div>
     </nav>
-    <div class="fixed h-screen w-screen flex items-center justify-center top-0 overflow-hidden bg-formblur" x-data="formValidation()" 
+    <div class="fixed h-screen w-screen flex items-center justify-center top-0 overflow-hidden bg-formblur z-50" x-data="formValidation()" 
       x-show="formActive"
       @click.away="formActive = false; document.body.classList.remove('overflow-hidden')" 
       @keydown.escape="formActive = false; document.body.classList.remove('overflow-hidden')"
       class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
       x-cloak>
       <form @submit.prevent="validateForm" novalidate
-      x-show="!showModal && formActive"
+      x-show="formActive"
       x-transition:enter="transition ease-out duration-300"
       x-transition:enter-start="opacity-0 scale-90"
       x-transition:enter-end="opacity-100 scale-100"
@@ -764,7 +764,7 @@
           <p class="text-gray-700">Your form has been submitted successfully.</p>
           <div class="mt-6 flex justify-end">
             <button 
-              @click="showModal = false; formActive = false"
+              @click="showModal = false"
               class="bg-primary/95 text-white py-2 px-4 rounded-md hover:bg-primary focus:ring-2 focus:ring-offset-2 focus:ring-primary"
             >
               Close
@@ -774,6 +774,7 @@
       </div>
     </div>
   </header>
+
   <!-- pricing -->
   <div class="isolate overflow-hidden">
     <div class="flow-root bg-gray-900 pb-16 pt-24 sm:pt-32 lg:pb-0" x-data="{ selectedFrequency: 'monthly' }">
