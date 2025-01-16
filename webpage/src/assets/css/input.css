@@ -18,9 +18,27 @@
 
 @font-face {
   font-family: 'Plus Jakarta Sans';
+  src: url('/fonts/plusjakartasans-medium.woff2') format('woff2'),
+       url('/fonts/plusjakartasans-medium.woff') format('woff'); 
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Plus Jakarta Sans';
   src: url('/fonts/plusjakartasans-semibold.woff2') format('woff2'),
        url('/fonts/plusjakartasans-semibold.woff') format('woff'); 
   font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  src: url('/fonts/plusjakartasans-bold.woff2') format('woff2'),
+       url('/fonts/plusjakartasans-bold.woff') format('woff'); 
+  font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
@@ -31,6 +49,10 @@
 
 @layer utilities{
   [x-cloak] { display: none !important; }
+
+  .paused {
+    animation-play-state: paused;
+  }
 
   @keyframes faderight {
     0% {
